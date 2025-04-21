@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Robot } from '@/types/robot'
+import StatusIndicator from '@/components/app/robots/StatusIndicator.vue'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Pencil, Trash2 } from 'lucide-vue-next'
@@ -17,7 +18,10 @@ const emit = defineEmits<{
 <template>
   <Card>
     <CardHeader>
-      <CardTitle>{{ props.robot.name }}</CardTitle>
+      <div class="flex items-center gap-2">
+        <CardTitle>{{ props.robot.name }}</CardTitle>
+        <StatusIndicator :robot="props.robot" />
+      </div>
     </CardHeader>
     <CardContent>
       <div class="grid gap-2">

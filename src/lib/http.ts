@@ -3,12 +3,6 @@ import { HTTPError, RaybotError } from '@/types/error'
 import axios, { isAxiosError } from 'axios'
 import { useNProgress } from './nprogress'
 
-declare module 'axios' {
-  export interface InternalAxiosRequestConfig {
-    doNotShowLoading?: boolean
-  }
-}
-
 export type RaybotHTTPClient = AxiosInstance
 
 const nprogress = useNProgress()
@@ -20,7 +14,7 @@ const nprogress = useNProgress()
  */
 export function createRaybotHTTPClient(raybotAPIURL: string): RaybotHTTPClient {
   const instance = axios.create({
-    baseURL: raybotAPIURL,
+    baseURL: `${raybotAPIURL}/api/v1`,
     timeout: 20000,
     headers: { 'Content-Type': 'application/json' },
   })
