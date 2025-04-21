@@ -1,13 +1,10 @@
 import antfu from '@antfu/eslint-config'
-import pluginOxlint from 'eslint-plugin-oxlint'
-import { globalIgnores } from 'eslint/config'
 
 export default antfu(
   {
     vue: true,
     typescript: true,
   },
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
   {
     files: ['**/*.vue'],
     rules: {
@@ -32,5 +29,4 @@ export default antfu(
       'unicorn/no-new-array': 0,
     },
   },
-  ...pluginOxlint.configs['flat/recommended'],
 )
