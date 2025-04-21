@@ -2,16 +2,19 @@
 import type { CommandFlow } from '@/types/command-flow'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-vue-next'
+import CreateCommandDialog from './CreateCommandDialog.vue'
 
 const props = defineProps<{
   commandFlow: CommandFlow
 }>()
+
+const showCreateDialog = ref(false)
 </script>
 
 <template>
   <div>
     <div class="flex justify-end">
-      <Button>
+      <Button @click="showCreateDialog = true">
         <Plus class="w-4 h-4" />
         Add Command
       </Button>
@@ -32,5 +35,11 @@ const props = defineProps<{
     <div v-else>
       Hello
     </div>
+
+    <CreateCommandDialog
+      :id="props.commandFlow.id"
+      v-model:open="showCreateDialog"
+      :commands="props.commandFlow.commands"
+    />
   </div>
 </template>

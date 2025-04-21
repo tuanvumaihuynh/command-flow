@@ -1,6 +1,6 @@
 import type { CommandInputMap, CommandType } from './raybot-command'
 
-export type ParameterType = 'string' | 'number' | 'location' | 'boolean'
+export type ParameterType = 'string' | 'number' | 'boolean' | 'location'
 
 export interface FlowParameter {
   id: string

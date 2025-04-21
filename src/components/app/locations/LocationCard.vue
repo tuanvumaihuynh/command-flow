@@ -23,7 +23,7 @@ const emit = defineEmits<{
       <div class="grid gap-2">
         <div class="flex justify-between text-sm">
           <span class="text-muted-foreground">RFID Tag:</span>
-          <span class="font-medium">{{ props.location.location }}</span>
+          <span class="font-medium">{{ props.location.rfidTag }}</span>
         </div>
         <div class="flex justify-between text-sm">
           <span class="text-muted-foreground">Created:</span>

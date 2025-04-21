@@ -20,7 +20,7 @@ const { handleSubmit, resetForm } = useForm({
   validationSchema: toTypedSchema(updateLocationSchema),
   initialValues: {
     name: props.location.name,
-    location: props.location.location,
+    rfidTag: props.location.rfidTag,
   },
 })
 
@@ -28,7 +28,7 @@ watch(() => props.location, (newLocation) => {
   resetForm({
     values: {
       name: newLocation.name,
-      location: newLocation.location,
+      rfidTag: newLocation.rfidTag,
     },
   })
 }, { deep: true })
@@ -64,7 +64,7 @@ const onSubmit = handleSubmit((values) => {
             </FormItem>
           </FormField>
 
-          <FormField v-slot="{ componentField }" name="location" class="grid gap-2">
+          <FormField v-slot="{ componentField }" name="rfidTag" class="grid gap-2">
             <FormItem>
               <FormLabel>RFID/Location Tag</FormLabel>
               <FormControl>
