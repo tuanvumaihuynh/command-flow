@@ -3,6 +3,7 @@ import type { Location } from '@/types/location'
 import CreateLocationDialog from '@/components/app/location/CreateLocationDialog.vue'
 import EditLocationDialog from '@/components/app/location/EditLocationDialog.vue'
 import LocationCard from '@/components/app/location/LocationCard.vue'
+import PageContainer from '@/components/shared/PageContainer.vue'
 import Button from '@/components/ui/button/Button.vue'
 import { useLocationLocalStorage } from '@/composables/use-location'
 import { Plus } from 'lucide-vue-next'
@@ -26,7 +27,7 @@ function handleDelete(location: Location) {
 </script>
 
 <template>
-  <div class="container p-4 mx-auto">
+  <PageContainer>
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-bold">
         Locations
@@ -58,5 +59,5 @@ function handleDelete(location: Location) {
 
     <CreateLocationDialog v-model:open="showCreateDialog" />
     <EditLocationDialog v-if="selectedLocation" v-model:open="showEditDialog" :location="selectedLocation" />
-  </div>
+  </PageContainer>
 </template>
