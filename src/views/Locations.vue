@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Location } from '@/types/location'
-import CreateLocationDialog from '@/components/app/location/CreateLocationDialog.vue'
-import EditLocationDialog from '@/components/app/location/EditLocationDialog.vue'
-import LocationCard from '@/components/app/location/LocationCard.vue'
+import CreateLocationDialog from '@/components/app/locations/CreateLocationDialog.vue'
+import EditLocationDialog from '@/components/app/locations/EditLocationDialog.vue'
+import LocationCard from '@/components/app/locations/LocationCard.vue'
 import PageContainer from '@/components/shared/PageContainer.vue'
 import Button from '@/components/ui/button/Button.vue'
 import { useLocationLocalStorage } from '@/composables/use-location'
