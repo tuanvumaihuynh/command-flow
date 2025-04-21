@@ -7,14 +7,23 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: MainLayout,
-    redirect: '/command-flow',
+    redirect: '/command-flows',
     children: [
       {
-        path: 'command-flow',
-        component: () => import('@/views/CommandFlow.vue'),
+        path: 'command-flows',
         meta: {
-          title: 'Command Flow',
+          title: 'Command Flows',
         },
+        children: [
+          {
+            path: '',
+            component: () => import('@/views/CommandFlows.vue'),
+          },
+          {
+            path: ':id',
+            component: () => import('@/views/CommandFlowBuilder.vue'),
+          },
+        ],
       },
       {
         path: 'locations',

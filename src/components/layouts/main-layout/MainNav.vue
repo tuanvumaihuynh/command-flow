@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import { cn } from '@/lib/utils'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
+interface Route {
+  path: string
+  title: string
+}
 
-const routes = router.getRoutes()
+const routes: Route[] = [
+  { path: '/', title: 'Home' },
+  { path: '/command-flows', title: 'Command Flows' },
+  { path: '/locations', title: 'Locations' },
+  { path: '/robots', title: 'Robots' },
+  { path: '/data-management', title: 'Data Management' },
+]
 </script>
 
 <template>
@@ -16,9 +24,9 @@ const routes = router.getRoutes()
       :key="route.path"
       :to="route.path"
       active-class="text-primary"
-      class="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+      class="text-sm font-medium transition-colors text-muted-foreground hover:text-primary"
     >
-      {{ route.meta.title }}
+      {{ route.title }}
     </RouterLink>
   </nav>
 </template>
