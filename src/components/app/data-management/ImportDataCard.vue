@@ -2,6 +2,7 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { useCommandFlowLocalStorage } from '@/composables/use-command-flow'
 import { useLocationLocalStorage } from '@/composables/use-location'
 import { useRobotLocalStorage } from '@/composables/use-robot'
 import { AlertTriangle, Save, Upload } from 'lucide-vue-next'
@@ -16,6 +17,7 @@ const validationDetails = ref<{ message: string, path: string[] }[]>([])
 
 const { importLocations } = useLocationLocalStorage()
 const { importRobots } = useRobotLocalStorage()
+const { importCommandFlows } = useCommandFlowLocalStorage()
 
 function handleImportClick() {
   if (fileInputRef.value) {
@@ -73,10 +75,11 @@ function handleImportData() {
 
     importLocations(data.locations)
     importRobots(data.robots)
+    importCommandFlows(data.commandFlows)
 
     notification.success({
       title: 'Data imported successfully',
-      message: `Imported ${data.locations.length} locations and ${data.robots.length} robots.`,
+      message: `Imported ${data.locations.length} locations, ${data.robots.length} robots, and ${data.commandFlows.length} command flows.`,
     })
 
     // Clear import data and error
