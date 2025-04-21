@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { FormControl, FormField, FormInput, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { useRobotLocalStorage } from '@/composables/use-robot'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
@@ -42,7 +41,7 @@ const onSubmit = handleSubmit((values) => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input v-bind="componentField" type="text" placeholder="Enter robot name" />
+                <FormInput v-bind="componentField" type="text" placeholder="Enter robot name" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -52,7 +51,7 @@ const onSubmit = handleSubmit((values) => {
             <FormItem>
               <FormLabel>IP Address</FormLabel>
               <FormControl>
-                <Input v-bind="componentField" type="text" placeholder="Enter IP address" />
+                <FormInput v-bind="componentField" type="text" placeholder="Enter IP address" />
               </FormControl>
               <FormMessage />
             </FormItem>

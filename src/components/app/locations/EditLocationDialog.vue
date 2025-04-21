@@ -2,8 +2,7 @@
 import type { Location } from '@/types/location'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { FormControl, FormField, FormInput, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { useLocationLocalStorage } from '@/composables/use-location'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
@@ -59,7 +58,7 @@ const onSubmit = handleSubmit((values) => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input v-bind="componentField" type="text" placeholder="Enter location name" />
+                <FormInput v-bind="componentField" type="text" placeholder="Enter location name" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -69,7 +68,7 @@ const onSubmit = handleSubmit((values) => {
             <FormItem>
               <FormLabel>RFID/Location Tag</FormLabel>
               <FormControl>
-                <Input v-bind="componentField" type="text" placeholder="Enter RFID tag" />
+                <FormInput v-bind="componentField" type="text" placeholder="Enter RFID tag" />
               </FormControl>
               <FormMessage />
             </FormItem>
