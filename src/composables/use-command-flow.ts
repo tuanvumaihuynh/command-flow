@@ -12,8 +12,8 @@ export function useCommandFlowLocalStorage() {
 
   const commandFlows = computed(() => state.value)
 
-  function getCommandFlowById(id: string): CommandFlow | undefined {
-    return state.value.find(commandFlow => commandFlow.id === id)
+  function getCommandFlowById(id: string): ComputedRef<CommandFlow | undefined> {
+    return computed(() => state.value.find(commandFlow => commandFlow.id === id))
   }
 
   function createCommandFlow(params: CreateCommandFlowParams): CommandFlow {

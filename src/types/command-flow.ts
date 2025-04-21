@@ -6,7 +6,6 @@ export interface FlowParameter {
   id: string
   name: string
   type: ParameterType
-  defaultValue?: string | number | boolean
   description?: string
 }
 
