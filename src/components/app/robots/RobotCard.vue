@@ -45,7 +45,7 @@ const emit = defineEmits<{
         <Pencil />
       </Button>
       <Button
-        variant="outline"
+        variant="destructive"
         size="icon"
         class="transition-colors rounded-md h-9 w-9 hover:bg-red-50 hover:text-red-600 hover:border-red-200"
         @click="emit('delete', props.robot)"
