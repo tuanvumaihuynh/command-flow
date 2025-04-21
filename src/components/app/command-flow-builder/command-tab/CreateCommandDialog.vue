@@ -3,13 +3,14 @@ import type { Command } from '@/types/command-flow'
 import type { CommandInputMap, CommandType } from '@/types/raybot-command'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { FormField, FormItem, FormLabel } from '@/components/ui/form'
+import { FormField, FormInput, FormItem, FormLabel } from '@/components/ui/form'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useCommandFlowLocalStorage } from '@/composables/use-command-flow'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import DynamicCommandInputsFields from './dynamic-inputs/DynamicCommandInputsFields.vue'
 import { createCommandSchema } from './schemas'
+import { getCommandLabel } from './utils'
 
 const props = defineProps<{
   id: string
@@ -25,10 +26,9 @@ const highestCommandIndex = computed(() => {
   }, 0)
 })
 
-const { handleSubmit, values, setFieldValue } = useForm({
+const { handleSubmit, values, setFieldValue, resetForm } = useForm({
   validationSchema: toTypedSchema(createCommandSchema),
   initialValues: {
-    type: 'STOP_MOVEMENT',
     inputs: {},
     parameterMapping: {},
   },
@@ -46,6 +46,7 @@ const onSubmit = handleSubmit((values) => {
   })
 
   isOpen.value = false
+  resetForm()
 })
 
 const commandType = computed({
@@ -117,8 +118,25 @@ function handleParameterMappingUpdate(parameterMapping: Record<string, string>) 
                   <SelectItem value="SCAN_LOCATION">
                     Scan Location
                   </SelectItem>
+                  <SelectItem value="WAIT">
+                    Wait
+                  </SelectItem>
                 </SelectContent>
               </Select>
+            </FormItem>
+          </FormField>
+
+          <FormField v-if="commandType" v-slot="{ componentField }" name="name" class="grid gap-2">
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <FormInput
+                  :default-value="getCommandLabel(commandType)"
+                  v-bind="componentField"
+                  placeholder="Enter a name for the command"
+                />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           </FormField>
 

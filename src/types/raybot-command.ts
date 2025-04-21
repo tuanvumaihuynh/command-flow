@@ -12,6 +12,9 @@ export interface CargoCheckQRInputs {
   qrCode: string
 }
 export interface ScanLocationInputs {}
+export interface WaitInputs {
+  durationMs: number
+}
 
 export interface StopMovementOutputs {}
 export interface MoveForwardOutputs {}
@@ -31,6 +34,8 @@ export interface ScanLocationOutputs {
   locations: Location[]
 }
 
+export interface WaitOutputs {}
+
 export interface CommandInputMap {
   STOP_MOVEMENT: StopMovementInputs
   MOVE_FORWARD: MoveForwardInputs
@@ -42,6 +47,7 @@ export interface CommandInputMap {
   CARGO_LOWER: CargoLowerInputs
   CARGO_CHECK_QR: CargoCheckQRInputs
   SCAN_LOCATION: ScanLocationInputs
+  WAIT: WaitInputs
 }
 
 export interface CommandOutputMap {
@@ -55,6 +61,7 @@ export interface CommandOutputMap {
   CARGO_LOWER: CargoLowerOutputs
   CARGO_CHECK_QR: CargoCheckQROutputs
   SCAN_LOCATION: ScanLocationOutputs
+  WAIT: WaitOutputs
 }
 
 export const CommandTypeValues = [
@@ -68,6 +75,7 @@ export const CommandTypeValues = [
   'CARGO_LOWER',
   'CARGO_CHECK_QR',
   'SCAN_LOCATION',
+  'WAIT',
 ] as const
 export type CommandType = typeof CommandTypeValues[number]
 

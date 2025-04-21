@@ -1,6 +1,6 @@
-import type { Command } from '@/types/command-flow'
+import type { CommandType } from '@/types/raybot-command'
 
-const commandLabels: Record<Command['type'], string> = {
+const commandLabels: Record<CommandType, string> = {
   MOVE_TO: 'Move To Location',
   CARGO_CHECK_QR: 'Check QR',
   STOP_MOVEMENT: 'Stop Movement',
@@ -11,8 +11,9 @@ const commandLabels: Record<Command['type'], string> = {
   CARGO_LIFT: 'Lift Cargo',
   CARGO_LOWER: 'Lower Cargo',
   SCAN_LOCATION: 'Scan Location',
+  WAIT: 'Wait',
 }
 
-export function getCommandLabel(command: Command) {
-  return commandLabels[command.type]
+export function getCommandLabel(commandType: CommandType) {
+  return commandLabels[commandType]
 }

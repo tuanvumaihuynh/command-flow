@@ -8,7 +8,7 @@ const commandInputsSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('MOVE_TO'),
     inputs: z.object({
-      location: z.string(),
+      location: z.string().default(''),
     }),
   }),
   z.object({
@@ -38,17 +38,24 @@ const commandInputsSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('CARGO_CHECK_QR'),
     inputs: z.object({
-      qrCode: z.string(),
+      qrCode: z.string().default(''),
     }),
   }),
   z.object({
     type: z.literal('SCAN_LOCATION'),
     inputs: z.object({}),
   }),
+  z.object({
+    type: z.literal('WAIT'),
+    inputs: z.object({
+      durationMs: z.number().default(0),
+    }),
+  }),
 ])
 
 export const createCommandSchema = commandInputsSchema.and(
   z.object({
+    name: z.string().default(''),
     parameterMapping: z.record(z.string(), z.string()).optional(),
   }),
 )

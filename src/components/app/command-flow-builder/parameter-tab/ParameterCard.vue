@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FlowParameter } from '@/types/command-flow'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Pencil, Trash2 } from 'lucide-vue-next'
 
 const props = defineProps<{
@@ -15,21 +15,29 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <Card class="flex justify-between">
-    <CardHeader>
-      <CardTitle>{{ props.parameter.name }}</CardTitle>
-      <CardDescription>Type: {{ props.parameter.type }}</CardDescription>
-      <p class="mt-2 text-sm">
+  <div class="flex items-center p-3 border rounded-md bg-muted/40">
+    <div class="flex-1">
+      <div class="text-sm font-medium">
+        {{ props.parameter.name }}
+      </div>
+      <div class="text-xs text-muted-foreground">
+        Data type:
+        <Badge variant="outline" class="mr-2 text-xs">
+          {{ props.parameter.type }}
+        </Badge>
+      </div>
+      <div class="text-sm text-muted-foreground">
         {{ props.parameter.description }}
-      </p>
-    </CardHeader>
-    <CardFooter class="flex justify-end gap-2 pt-2">
+      </div>
+    </div>
+
+    <div class="flex space-x-2">
       <Button variant="outline" size="icon" @click="emit('edit', props.parameter)">
-        <Pencil />
+        <Pencil class="w-4 h-4" />
       </Button>
-      <Button variant="outline" size="icon" @click="emit('delete', props.parameter)">
-        <Trash2 />
+      <Button variant="destructive" size="icon" @click="emit('delete', props.parameter)">
+        <Trash2 class="w-4 h-4" />
       </Button>
-    </CardFooter>
-  </Card>
+    </div>
+  </div>
 </template>

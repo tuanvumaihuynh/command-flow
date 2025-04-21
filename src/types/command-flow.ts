@@ -11,6 +11,7 @@ export interface FlowParameter {
 
 export interface Command<T extends CommandType = CommandType> {
   index: number
+  name: string
   type: T
   inputs: CommandInputMap[T]
   parameterMapping?: Record<string, string> // Map input field to parameter ID

@@ -24,13 +24,13 @@ const emit = defineEmits<{
     </div>
     <div class="flex-1">
       <div class="text-sm font-medium">
-        {{ getCommandLabel(props.command) }}
+        {{ props.command.name }}
       </div>
       <div class="text-sm text-muted-foreground">
-        {{ command.type.replace(/_/g, " ") }}
+        {{ getCommandLabel(props.command.type) }}
         <template v-if="props.command.parameterMapping && Object.keys(props.command.parameterMapping).length > 0">
           <Badge variant="outline" class="ml-2 text-xs">
-            Parameterized
+            {{ Object.keys(props.command.parameterMapping).length }} parameters
           </Badge>
         </template>
       </div>
