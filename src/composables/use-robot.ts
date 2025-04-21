@@ -59,11 +59,16 @@ export function useRobotLocalStorage() {
     return state.value.length !== initialLength
   }
 
+  function importRobots(robots: Robot[]) {
+    state.value = robots
+  }
+
   return {
     robots,
     getRobotById,
     createRobot,
     updateRobot,
     deleteRobot,
+    importRobots,
   }
 }

@@ -59,11 +59,16 @@ export function useLocationLocalStorage() {
     return state.value.length !== initialLength
   }
 
+  function importLocations(locations: Location[]) {
+    state.value = locations
+  }
+
   return {
     locations,
     getLocationById,
     createLocation,
     updateLocation,
     deleteLocation,
+    importLocations,
   }
 }
