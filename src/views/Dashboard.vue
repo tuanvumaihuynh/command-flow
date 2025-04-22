@@ -4,6 +4,6 @@
 
 <template>
   <div>
-    Command flow run
+    xas
   </div>
 </template>

@@ -7,30 +7,15 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: MainLayout,
-    redirect: '/command-flows',
+    redirect: '/dashboard',
     children: [
       {
-        path: 'command-flows',
+        path: 'dashboard',
+        name: 'dashboard',
+        component: () => import('@/views/Dashboard.vue'),
         meta: {
-          title: 'Command Flows',
+          title: 'Dashboard',
         },
-        children: [
-          {
-            path: '',
-            name: 'command-flows',
-            component: () => import('@/views/CommandFlows.vue'),
-          },
-          {
-            path: ':id',
-            name: 'command-flow-builder',
-            component: () => import('@/views/CommandFlowBuilder.vue'),
-          },
-          {
-            path: ':id/run',
-            name: 'command-flow-run',
-            component: () => import('@/views/CommandFlowRun.vue'),
-          },
-        ],
       },
       {
         path: 'locations',
@@ -41,22 +26,19 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
-        path: 'robots',
-        name: 'robots',
-        component: () => import('@/views/Robots.vue'),
+        path: 'setting',
+        name: 'setting',
+        component: () => import('@/views/Setting.vue'),
         meta: {
-          title: 'Robots',
-        },
-      },
-      {
-        path: 'data-management',
-        name: 'data-management',
-        component: () => import('@/views/DataManagement.vue'),
-        meta: {
-          title: 'Data Management',
+          title: 'Setting',
         },
       },
     ],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/views/NotFound.vue'),
   },
 ]
 

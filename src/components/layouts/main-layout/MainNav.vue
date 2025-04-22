@@ -7,11 +7,9 @@ interface Route {
 }
 
 const routes: Route[] = [
-  { path: '/', title: 'Home' },
-  { path: '/command-flows', title: 'Command Flows' },
+  { path: '/dashboard', title: 'Dashboard' },
   { path: '/locations', title: 'Locations' },
-  { path: '/robots', title: 'Robots' },
-  { path: '/data-management', title: 'Data Management' },
+  { path: '/setting', title: 'Setting' },
 ]
 </script>
 
@@ -20,7 +18,7 @@ const routes: Route[] = [
     :class="cn('flex items-center space-x-4 lg:space-x-6', $attrs.class ?? '')"
   >
     <RouterLink
-      v-for="route in routes.filter(route => route.path !== '/')"
+      v-for="route in routes"
       :key="route.path"
       :to="route.path"
       active-class="text-primary"

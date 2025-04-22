@@ -2,9 +2,8 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { useCommandFlowLocalStorage } from '@/composables/use-command-flow'
 import { useLocationLocalStorage } from '@/composables/use-location'
-import { useRobotLocalStorage } from '@/composables/use-robot'
+import { useSettingLocalStorage } from '@/composables/use-setting'
 import { AlertTriangle, Save, Upload } from 'lucide-vue-next'
 import { fromZodError } from 'zod-validation-error'
 import { importDataSchema } from './schemas'
@@ -16,8 +15,7 @@ const importError = ref('')
 const validationDetails = ref<{ message: string, path: string[] }[]>([])
 
 const { importLocations } = useLocationLocalStorage()
-const { importRobots } = useRobotLocalStorage()
-const { importCommandFlows } = useCommandFlowLocalStorage()
+const { importSetting } = useSettingLocalStorage()
 
 function handleImportClick() {
   if (fileInputRef.value) {
@@ -74,12 +72,11 @@ function handleImportData() {
     const data = result.data
 
     importLocations(data.locations)
-    importRobots(data.robots)
-    importCommandFlows(data.commandFlows)
+    importSetting(data.setting)
 
     notification.success({
       title: 'Data imported successfully',
-      message: `Imported ${data.locations.length} locations, ${data.robots.length} robots, and ${data.commandFlows.length} command flows.`,
+      message: `Imported ${data.locations.length} locations.`,
     })
 
     // Clear import data and error
