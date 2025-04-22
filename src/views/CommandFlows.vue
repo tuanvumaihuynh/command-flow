@@ -2,6 +2,7 @@
 import type { CommandFlow } from '@/types/command-flow'
 import CommandFlowCard from '@/components/app/command-flows/CommandFlowCard.vue'
 import CreateCommandFlowDialog from '@/components/app/command-flows/CreateCommandFlowDialog.vue'
+import RunCommandFlowDialog from '@/components/app/command-flows/run-dialog/RunCommandFlowDialog.vue'
 import PageContainer from '@/components/shared/PageContainer.vue'
 import { Button } from '@/components/ui/button'
 import { useCommandFlowLocalStorage } from '@/composables/use-command-flow'
@@ -11,8 +12,13 @@ const { commandFlows, deleteCommandFlow } = useCommandFlowLocalStorage()
 
 const selectedCommandFlow = ref<CommandFlow | null>(null)
 const showCreateDialog = ref(false)
-
+const showRunDialog = ref(false)
 const router = useRouter()
+
+function handleRun(commandFlow: CommandFlow) {
+  selectedCommandFlow.value = commandFlow
+  showRunDialog.value = true
+}
 
 function handleEdit(commandFlow: CommandFlow) {
   router.push(`/command-flows/${commandFlow.id}`)
@@ -50,11 +56,17 @@ function handleDelete(commandFlow: CommandFlow) {
         v-for="commandFlow in commandFlows"
         :key="commandFlow.id"
         :command-flow="commandFlow"
-        @edit="handleEdit(commandFlow)"
-        @delete="handleDelete(commandFlow)"
+        @run="handleRun"
+        @edit="handleEdit"
+        @delete="handleDelete"
       />
     </div>
 
     <CreateCommandFlowDialog v-model:open="showCreateDialog" />
+    <RunCommandFlowDialog
+      v-if="selectedCommandFlow"
+      v-model:open="showRunDialog"
+      :command-flow="selectedCommandFlow"
+    />
   </PageContainer>
 </template>

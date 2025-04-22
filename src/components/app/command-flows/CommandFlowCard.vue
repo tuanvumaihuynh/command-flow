@@ -2,13 +2,14 @@
 import type { CommandFlow } from '@/types/command-flow'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Pencil, Trash2 } from 'lucide-vue-next'
+import { Pencil, Play, Trash2 } from 'lucide-vue-next'
 
 const props = defineProps<{
   commandFlow: CommandFlow
 }>()
 
 const emit = defineEmits<{
+  (e: 'run', commandFlow: CommandFlow): void
   (e: 'edit', commandFlow: CommandFlow): void
   (e: 'delete', commandFlow: CommandFlow): void
 }>()
@@ -42,23 +43,29 @@ const emit = defineEmits<{
         </div>
       </div>
     </CardContent>
-    <CardFooter class="flex justify-end gap-2 pt-2 border-t border-slate-100">
-      <Button
-        variant="outline"
-        size="icon"
-        class="transition-colors rounded-md h-9 w-9 hover:bg-slate-100 hover:text-slate-900"
-        @click="emit('edit', props.commandFlow)"
-      >
-        <Pencil />
+    <CardFooter class="flex justify-between gap-2 pt-2 border-t border-slate-100">
+      <Button variant="outline" @click="emit('run', props.commandFlow)">
+        <Play />
+        Run
       </Button>
-      <Button
-        variant="destructive"
-        size="icon"
-        class="transition-colors rounded-md h-9 w-9 hover:bg-red-50 hover:text-red-600 hover:border-red-200"
-        @click="emit('delete', props.commandFlow)"
-      >
-        <Trash2 />
-      </Button>
+      <div class="flex gap-2">
+        <Button
+          variant="outline"
+          size="icon"
+          class="transition-colors rounded-md h-9 w-9 hover:bg-slate-100 hover:text-slate-900"
+          @click="emit('edit', props.commandFlow)"
+        >
+          <Pencil />
+        </Button>
+        <Button
+          variant="destructive"
+          size="icon"
+          class="transition-colors rounded-md h-9 w-9 hover:bg-red-50 hover:text-red-600 hover:border-red-200"
+          @click="emit('delete', props.commandFlow)"
+        >
+          <Trash2 />
+        </Button>
+      </div>
     </CardFooter>
   </Card>
 </template>

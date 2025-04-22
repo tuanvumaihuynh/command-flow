@@ -17,16 +17,24 @@ const routes: RouteRecordRaw[] = [
         children: [
           {
             path: '',
+            name: 'command-flows',
             component: () => import('@/views/CommandFlows.vue'),
           },
           {
             path: ':id',
+            name: 'command-flow-builder',
             component: () => import('@/views/CommandFlowBuilder.vue'),
+          },
+          {
+            path: ':id/run',
+            name: 'command-flow-run',
+            component: () => import('@/views/CommandFlowRun.vue'),
           },
         ],
       },
       {
         path: 'locations',
+        name: 'locations',
         component: () => import('@/views/Locations.vue'),
         meta: {
           title: 'Locations',
@@ -34,6 +42,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: 'robots',
+        name: 'robots',
         component: () => import('@/views/Robots.vue'),
         meta: {
           title: 'Robots',
@@ -41,6 +50,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: 'data-management',
+        name: 'data-management',
         component: () => import('@/views/DataManagement.vue'),
         meta: {
           title: 'Data Management',
