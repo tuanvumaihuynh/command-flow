@@ -12,7 +12,7 @@ const { setting } = useSettingLocalStorage()
 const { handleSubmit } = useForm({
   validationSchema: toTypedSchema(settingSchema),
   initialValues: {
-    robotAPIURL: '',
+    robotAPIURL: setting.value.robotAPIURL,
   },
 })
 
@@ -46,11 +46,11 @@ const onSubmit = handleSubmit((values) => {
             </FormItem>
           </FormField>
         </div>
-      </form>
 
-      <Button type="submit">
-        Save
-      </Button>
-    </cardcontent>
+        <Button type="submit">
+          Save
+        </Button>
+      </form>
+    </CardContent>
   </Card>
 </template>
