@@ -9,8 +9,9 @@ import { useLocationLocalStorage } from '@/composables/use-location'
 import { cn } from '@/lib/utils'
 import { useFullscreen } from '@vueuse/core'
 import { Maximize, Minimize } from 'lucide-vue-next'
+import { useTemplateRef } from 'vue'
 
-const contentDiv = ref<HTMLElement | null>(null)
+const contentDiv = useTemplateRef('contentDiv')
 const { isFullscreen, toggle } = useFullscreen(contentDiv)
 
 const { locations } = useLocationLocalStorage()
@@ -75,6 +76,7 @@ function handleConfirmDelivery() {
     <ConfirmDialog
       v-model:open="showConfirmDialog"
       :name="selectedLocation?.name ?? ''"
+      :to="contentDiv!"
       @confirm="handleConfirmDelivery"
     />
   </div>

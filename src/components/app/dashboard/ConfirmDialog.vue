@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 
 const props = defineProps<{
+  to: HTMLElement
   name: string
 }>()
 
@@ -15,7 +16,7 @@ const isOpen = defineModel<boolean>('open', { required: true })
 
 <template>
   <Dialog v-model:open="isOpen">
-    <DialogContent class="max-w-md">
+    <DialogContent :to="props.to" class="max-w-md">
       <DialogHeader>
         <DialogTitle>Xác nhận giao hàng</DialogTitle>
         <DialogDescription>
