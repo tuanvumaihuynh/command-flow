@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Location } from '@/types/location'
+import ConfigLocationDialog from '@/components/app/dashboard/ConfigLocationDialog.vue'
 import ConfirmDialog from '@/components/app/dashboard/ConfirmDialog.vue'
 import LocationCard from '@/components/app/dashboard/LocationCard.vue'
 import { Button } from '@/components/ui/button'
@@ -35,17 +36,21 @@ function handleConfirmDelivery() {
 </script>
 
 <template>
-  <div ref="contentDiv" :class="cn(isFullscreen && 'min-h-screen bg-background', 'container p-6')">
+  <div id="fullscreen-target" ref="contentDiv" :class="cn(isFullscreen && 'min-h-screen bg-background', 'container p-6')">
     <div>
       <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-bold">
           Dashboard
         </h1>
-
-        <Button variant="outline" size="icon" @click="toggle">
-          <Maximize v-if="!isFullscreen" class="w-4 h-4" />
-          <Minimize v-else class="w-4 h-4" />
-        </Button>
+        <div class="flex items-center gap-4">
+          <ConfigLocationDialog>
+            <Button>Cấu hình vị trí</Button>
+          </ConfigLocationDialog>
+          <Button variant="outline" size="icon" @click="toggle">
+            <Maximize v-if="!isFullscreen" class="w-4 h-4" />
+            <Minimize v-else class="w-4 h-4" />
+          </Button>
+        </div>
       </div>
 
       <div v-if="locations.length === 0" class="py-8 my-12 text-center border rounded-lg">

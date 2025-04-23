@@ -1,12 +1,11 @@
 import { RaybotCommandAPI } from '@/api/raybot-command'
 import { createRaybotHTTPClient } from '@/lib/http'
+import { useDashboardLocalStorage } from './use-dashboard'
 import { useSettingLocalStorage } from './use-setting'
-
-const HOME_LOCATION = '0744778982'
-const KITCHEN_LOCATION = '0744285926'
 
 export function useDelivery() {
   const { setting } = useSettingLocalStorage()
+  const { dashboard } = useDashboardLocalStorage()
 
   const raybotCommandAPI = new RaybotCommandAPI(createRaybotHTTPClient(setting.value.robotAPIURL))
 
@@ -15,7 +14,7 @@ export function useDelivery() {
     await raybotCommandAPI.createCommand({
       type: 'MOVE_TO',
       inputs: {
-        location: KITCHEN_LOCATION,
+        location: dashboard.value.kitchenLocation,
       },
     })
 
@@ -95,7 +94,7 @@ export function useDelivery() {
     await raybotCommandAPI.createCommand({
       type: 'MOVE_TO',
       inputs: {
-        location: HOME_LOCATION,
+        location: dashboard.value.homeLocation,
       },
     })
   }

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { dashboardSchema } from '../dashboard/schemas'
 
 const locationSchema = z.object({
   id: z.string(),
@@ -15,4 +16,5 @@ export const settingSchema = z.object({
 export const importDataSchema = z.object({
   locations: z.array(locationSchema),
   setting: settingSchema,
+  dashboard: dashboardSchema,
 })
