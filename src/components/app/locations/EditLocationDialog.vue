@@ -24,14 +24,16 @@ const { handleSubmit, resetForm } = useForm({
   },
 })
 
-watch(() => props.location, (newLocation) => {
-  resetForm({
-    values: {
-      name: newLocation.name,
-      rfidTag: newLocation.rfidTag,
-    },
-  })
-}, { deep: true })
+watch(isOpen, (newIsOpen) => {
+  if (newIsOpen) {
+    resetForm({
+      values: {
+        name: props.location.name,
+        rfidTag: props.location.rfidTag,
+      },
+    })
+  }
+})
 
 const onSubmit = handleSubmit((values) => {
   updateLocation({
