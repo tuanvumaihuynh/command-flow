@@ -1,4 +1,5 @@
-export interface Dashboard {
-  homeLocation: string
-  kitchenLocation: string
+export interface DashboardConfig {
+  homeLocationId: string
+  kitchenLocationId: string
+  robotId: string
 }

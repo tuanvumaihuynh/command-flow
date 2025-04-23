@@ -25,7 +25,7 @@ const emit = defineEmits<{
     <CardContent class="pb-3">
       <div class="grid gap-2">
         <div class="flex justify-between text-sm">
-          <span class="text-muted-foreground">Mã bàn:</span>
+          <span class="text-muted-foreground">Location code:</span>
           <span class="font-medium">{{ props.location.rfidTag }}</span>
         </div>
       </div>
@@ -37,7 +37,7 @@ const emit = defineEmits<{
         class="w-full"
         @click="emit('delivery', props.location)"
       >
-        <Send class="w-4 h-4 mr-2" /> Giao đến bàn này
+        <Send class="w-4 h-4 mr-2" /> Deliver to this location
       </Button>
     </CardFooter>
   </Card>

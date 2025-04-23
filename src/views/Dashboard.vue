@@ -1,47 +1,26 @@
 <script setup lang="ts">
 import type { Location } from '@/types/location'
-import ConfigLocationDialog from '@/components/app/dashboard/ConfigLocationDialog.vue'
+import ConfigDialog from '@/components/app/dashboard/ConfigDialog.vue'
 import ConfirmDialog from '@/components/app/dashboard/ConfirmDialog.vue'
 import LocationCard from '@/components/app/dashboard/LocationCard.vue'
 import { Button } from '@/components/ui/button'
-import { useDelivery } from '@/composables/use-delivery'
 import { useLocationLocalStorage } from '@/composables/use-location'
 import { cn } from '@/lib/utils'
 import { useFullscreen } from '@vueuse/core'
-import { Maximize, Minimize } from 'lucide-vue-next'
-import { useTemplateRef } from 'vue'
+import { Maximize, Minimize, Settings } from 'lucide-vue-next'
 
 const contentDiv = useTemplateRef('contentDiv')
 const { isFullscreen, toggle } = useFullscreen(contentDiv)
 
 const { locations } = useLocationLocalStorage()
-const selectedLocation = ref<Location | null>(null)
+const targetDeliveryLocation = ref<Location | null>(null)
 
 const showConfirmDialog = ref(false)
-const showConfigLocationDialog = ref(false)
-const { delivery, HomeLocation, KitchenLocation } = useDelivery()
+const showConfigDialog = ref(false)
 
 function handleDelivery(location: Location) {
-  selectedLocation.value = location
+  targetDeliveryLocation.value = location
   showConfirmDialog.value = true
-}
-
-function handleConfirmDelivery() {
-  if (!selectedLocation.value)
-    return
-
-  if (HomeLocation.value?.rfidTag && KitchenLocation.value?.rfidTag) {
-    delivery(selectedLocation.value.rfidTag)
-  }
-  else {
-    notification.error({
-      title: 'Lỗi vị trí',
-      message: 'Vui lòng cấu hình vị trí nhà và bếp trước khi giao hàng',
-    })
-  }
-
-  showConfirmDialog.value = false
-  selectedLocation.value = null
 }
 </script>
 
@@ -49,13 +28,16 @@ function handleConfirmDelivery() {
   <div id="fullscreen-target" ref="contentDiv" :class="cn(isFullscreen && 'min-h-screen bg-background', 'container p-6')">
     <div>
       <div class="flex items-center justify-between mb-6">
-        <h1 class="text-2xl font-bold">
-          Dashboard
+        <h1 class="text-2xl font-bold tracking-tight">
+          Delivery dashboard
         </h1>
         <div class="flex items-center gap-4">
-          <ConfigLocationDialog v-model:open="showConfigLocationDialog" :to="contentDiv!">
-            <Button>Cấu hình vị trí</Button>
-          </ConfigLocationDialog>
+          <ConfigDialog v-model:open="showConfigDialog" :to="contentDiv!">
+            <Button>
+              <Settings class="w-4 h-4" />
+              Config
+            </Button>
+          </ConfigDialog>
           <Button variant="outline" size="icon" @click="toggle">
             <Maximize v-if="!isFullscreen" class="w-4 h-4" />
             <Minimize v-else class="w-4 h-4" />
@@ -65,10 +47,10 @@ function handleConfirmDelivery() {
 
       <div v-if="locations.length === 0" class="py-8 my-12 text-center border rounded-lg">
         <p class="text-lg text-muted-foreground">
-          Không tìm thấy bàn nào
+          No location found
         </p>
         <p class="mt-2 text-sm text-muted-foreground">
-          Vui lòng thêm bàn trong phần Quản lý Bàn
+          Please add a location in the Location Management section
         </p>
       </div>
 
@@ -83,10 +65,10 @@ function handleConfirmDelivery() {
     </div>
 
     <ConfirmDialog
+      v-if="targetDeliveryLocation"
       v-model:open="showConfirmDialog"
-      :name="selectedLocation?.name ?? ''"
+      v-model:location="targetDeliveryLocation"
       :to="contentDiv!"
-      @confirm="handleConfirmDelivery"
     />
   </div>
 </template>

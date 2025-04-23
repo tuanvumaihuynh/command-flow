@@ -2,7 +2,6 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { useDashboardLocalStorage } from '@/composables/use-dashboard'
 import { useLocationLocalStorage } from '@/composables/use-location'
 import { useSettingLocalStorage } from '@/composables/use-setting'
 import { AlertTriangle, Save, Upload } from 'lucide-vue-next'
@@ -17,7 +16,6 @@ const validationDetails = ref<{ message: string, path: string[] }[]>([])
 
 const { importLocations } = useLocationLocalStorage()
 const { importSetting } = useSettingLocalStorage()
-const { importDashboard } = useDashboardLocalStorage()
 
 function handleImportClick() {
   if (fileInputRef.value) {
@@ -75,7 +73,6 @@ function handleImportData() {
 
     importLocations(data.locations)
     importSetting(data.setting)
-    importDashboard(data.dashboard)
     notification.success({
       title: 'Data imported successfully',
       message: `Imported ${data.locations.length} locations.`,

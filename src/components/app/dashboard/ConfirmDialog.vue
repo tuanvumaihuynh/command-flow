@@ -1,33 +1,57 @@
 <script setup lang="ts">
+import type { Location } from '@/types/location'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { useDelivery } from '@/composables/use-delivery'
 
 const props = defineProps<{
   to: HTMLElement
-  name: string
-}>()
-
-const emit = defineEmits<{
-  (e: 'confirm'): void
 }>()
 
 const isOpen = defineModel<boolean>('open', { required: true })
+const location = defineModel<Location>('location', { required: true })
+
+const { delivery } = useDelivery()
+const isLoading = ref(false)
+
+async function handleConfirmDelivery() {
+  isLoading.value = true
+  try {
+    await delivery(location.value.rfidTag)
+    notification.success({
+      message: 'Task assigned successfully',
+    })
+  }
+  catch (error) {
+    notification.error({
+      message: error instanceof Error ? error.message : 'Unknown error',
+    })
+  }
+  finally {
+    isOpen.value = false
+    isLoading.value = false
+  }
+}
 </script>
 
 <template>
   <Dialog v-model:open="isOpen">
-    <DialogContent :to="props.to" class="max-w-md">
+    <DialogContent
+      :to="props.to" @interact-outside="(e) => {
+        e.preventDefault()
+      }"
+    >
       <DialogHeader>
-        <DialogTitle>Xác nhận giao hàng</DialogTitle>
+        <DialogTitle>Confirm delivery</DialogTitle>
         <DialogDescription>
-          Bạn có chắc chắn muốn giao món ăn đến bàn
-          <span class="font-semibold">{{ props.name }}</span>?
+          Are you sure you want to deliver the order to
+          <span class="font-semibold">{{ location.name }}</span>?
         </DialogDescription>
       </DialogHeader>
 
       <DialogFooter>
-        <Button @click="emit('confirm')">
-          Xác nhận giao hàng
+        <Button :disabled="isLoading" @click="handleConfirmDelivery">
+          {{ isLoading ? 'Assigning task...' : 'Confirm' }}
         </Button>
       </DialogFooter>
     </DialogContent>

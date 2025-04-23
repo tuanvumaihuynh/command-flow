@@ -1,114 +1,115 @@
 import { RaybotCommandAPI } from '@/api/raybot-command'
 import { createRaybotHTTPClient } from '@/lib/http'
 import { useDashboardLocalStorage } from './use-dashboard'
-import { useLocationLocalStorage } from './use-location'
-import { useSettingLocalStorage } from './use-setting'
 
 export function useDelivery() {
-  const { setting } = useSettingLocalStorage()
-  const { dashboard } = useDashboardLocalStorage()
-  const { locations } = useLocationLocalStorage()
+  const { homeLocation, kitchenLocation, robot } = useDashboardLocalStorage()
 
-  // Get locations
-  const HomeLocation = computed(() => locations.value.find(location => location.id === dashboard.value.homeLocation))
-  const KitchenLocation = computed(() => locations.value.find(location => location.id === dashboard.value.kitchenLocation))
-
-  // Create raybot command API
-  const raybotCommandAPI = new RaybotCommandAPI(createRaybotHTTPClient(setting.value.robotAPIURL))
+  const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value)
 
   async function delivery(location: string) {
-    // Move to KITCHEN
-    await raybotCommandAPI.createCommand({
-      type: 'MOVE_TO',
-      inputs: {
-        location: KitchenLocation.value!.rfidTag,
-      },
-    })
+    if (!isValid.value) {
+      return Promise.reject(new Error('Home, kitchen or robot not configured'))
+    }
 
-    // Lower cargo
-    await raybotCommandAPI.createCommand({
-      type: 'CARGO_LOWER',
-      inputs: {},
-    })
+    const raybotCommandAPI = new RaybotCommandAPI(createRaybotHTTPClient(robot.value!.ipAddress))
 
-    // Open cargo
-    await raybotCommandAPI.createCommand({
-      type: 'CARGO_OPEN',
-      inputs: {},
-    })
+    try {
+      // Move to KITCHEN
+      await raybotCommandAPI.createCommand({
+        type: 'MOVE_TO',
+        inputs: {
+          location: kitchenLocation.value!.rfidTag,
+        },
+      })
 
-    // Wait 10 seconds
-    await raybotCommandAPI.createCommand({
-      type: 'WAIT',
-      inputs: {
-        durationMs: 10000,
-      },
-    })
+      // Lower cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_LOWER',
+        inputs: {},
+      })
 
-    // Close cargo
-    await raybotCommandAPI.createCommand({
-      type: 'CARGO_CLOSE',
-      inputs: {},
-    })
+      // Open cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_OPEN',
+        inputs: {},
+      })
 
-    // Lift cargo
-    await raybotCommandAPI.createCommand({
-      type: 'CARGO_LIFT',
-      inputs: {},
-    })
+      // Wait 10 seconds
+      await raybotCommandAPI.createCommand({
+        type: 'WAIT',
+        inputs: {
+          durationMs: 10000,
+        },
+      })
 
-    // Move to target location
-    await raybotCommandAPI.createCommand({
-      type: 'MOVE_TO',
-      inputs: {
-        location,
-      },
-    })
+      // Close cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_CLOSE',
+        inputs: {},
+      })
 
-    // Lower cargo
-    await raybotCommandAPI.createCommand({
-      type: 'CARGO_LOWER',
-      inputs: {},
-    })
+      // Lift cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_LIFT',
+        inputs: {},
+      })
 
-    // Open cargo
-    await raybotCommandAPI.createCommand({
-      type: 'CARGO_OPEN',
-      inputs: {},
-    })
+      // Move to target location
+      await raybotCommandAPI.createCommand({
+        type: 'MOVE_TO',
+        inputs: {
+          location,
+        },
+      })
 
-    // Wait 10 seconds
-    await raybotCommandAPI.createCommand({
-      type: 'WAIT',
-      inputs: {
-        durationMs: 10000,
-      },
-    })
+      // Lower cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_LOWER',
+        inputs: {},
+      })
 
-    // Close cargo
-    await raybotCommandAPI.createCommand({
-      type: 'CARGO_CLOSE',
-      inputs: {},
-    })
+      // Open cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_OPEN',
+        inputs: {},
+      })
 
-    // Lift cargo
-    await raybotCommandAPI.createCommand({
-      type: 'CARGO_LIFT',
-      inputs: {},
-    })
+      // Wait 10 seconds
+      await raybotCommandAPI.createCommand({
+        type: 'WAIT',
+        inputs: {
+          durationMs: 10000,
+        },
+      })
 
-    // Move to HOME
-    await raybotCommandAPI.createCommand({
-      type: 'MOVE_TO',
-      inputs: {
-        location: HomeLocation.value!.rfidTag,
-      },
-    })
+      // Close cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_CLOSE',
+        inputs: {},
+      })
+
+      // Lift cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_LIFT',
+        inputs: {},
+      })
+
+      // Move to HOME
+      await raybotCommandAPI.createCommand({
+        type: 'MOVE_TO',
+        inputs: {
+          location: homeLocation.value!.rfidTag,
+        },
+      })
+    }
+    catch {
+      return Promise.reject(new Error('Network error or may be robot is not connected'))
+    }
   }
 
   return {
     delivery,
-    HomeLocation,
-    KitchenLocation,
+    isValid,
   }
 }
