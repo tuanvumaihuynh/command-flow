@@ -9,6 +9,7 @@ interface Route {
 const routes: Route[] = [
   { path: '/dashboard', title: 'Dashboard' },
   { path: '/locations', title: 'Locations' },
+  { path: '/robots', title: 'Robots' },
   { path: '/setting', title: 'Setting' },
 ]
 </script>
