@@ -28,12 +28,16 @@ import { useDashboardLocalStorage } from '@/composables/use-dashboard'
 import { useLocationLocalStorage } from '@/composables/use-location'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { ref } from 'vue'
 import { dashboardSchema } from './schemas'
+
+const props = defineProps<{
+  to: HTMLElement
+}>()
+
+const isOpen = defineModel<boolean>('open', { required: true })
 
 const { dashboard } = useDashboardLocalStorage()
 const { locations } = useLocationLocalStorage()
-const isOpen = ref(false)
 
 const validationSchema = toTypedSchema(dashboardSchema)
 
@@ -47,7 +51,6 @@ const { handleSubmit, resetForm } = useForm({
 
 const onSubmit = handleSubmit((values) => {
   dashboard.value = values
-  isOpen.value = false
 })
 
 watch(isOpen, (value) => {
@@ -67,7 +70,7 @@ watch(isOpen, (value) => {
     <DialogTrigger as-child>
       <slot />
     </DialogTrigger>
-    <DialogContent class="sm:max-w-[425px]">
+    <DialogContent :to="props.to" class="sm:max-w-[425px]">
       <DialogHeader>
         <DialogTitle>Cấu hình vị trí</DialogTitle>
         <DialogDescription>

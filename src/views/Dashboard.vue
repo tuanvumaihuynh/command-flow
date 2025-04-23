@@ -18,6 +18,7 @@ const { locations } = useLocationLocalStorage()
 const selectedLocation = ref<Location | null>(null)
 
 const showConfirmDialog = ref(false)
+const showConfigLocationDialog = ref(false)
 const { delivery } = useDelivery()
 
 function handleDelivery(location: Location) {
@@ -44,7 +45,7 @@ function handleConfirmDelivery() {
           Dashboard
         </h1>
         <div class="flex items-center gap-4">
-          <ConfigLocationDialog>
+          <ConfigLocationDialog v-model:open="showConfigLocationDialog" :to="contentDiv!">
             <Button>Cấu hình vị trí</Button>
           </ConfigLocationDialog>
           <Button variant="outline" size="icon" @click="toggle">
