@@ -25,7 +25,7 @@ function handleDelivery(location: Location) {
 </script>
 
 <template>
-  <div id="fullscreen-target" ref="contentDiv" :class="cn(isFullscreen && 'min-h-screen bg-background', 'container p-6')">
+  <div ref="contentDiv" :class="cn(isFullscreen && 'min-h-screen bg-background overflow-auto', 'container p-6')">
     <div>
       <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-bold tracking-tight">
