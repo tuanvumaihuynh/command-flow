@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ColorSwitcher from './ColorSwitcher.vue'
 import Logo from './Logo.vue'
 import MainNav from './MainNav.vue'
+import ThemeSwitcher from './ThemeSwitcher.vue'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import MainNav from './MainNav.vue'
         <Logo />
         <MainNav class="mx-6" />
         <div class="flex items-center ml-auto space-x-4">
-          <ColorSwitcher />
+          <ThemeSwitcher />
         </div>
       </div>
     </div>
