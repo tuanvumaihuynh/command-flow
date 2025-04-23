@@ -51,6 +51,7 @@ const { handleSubmit, resetForm } = useForm({
 
 const onSubmit = handleSubmit((values) => {
   dashboard.value = values
+  isOpen.value = false
 })
 
 watch(isOpen, (value) => {
@@ -91,7 +92,7 @@ watch(isOpen, (value) => {
               </FormControl>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem v-for="location in locations" :key="location.rfidTag" :value="location.rfidTag">
+                  <SelectItem v-for="location in locations" :key="location.id" :value="location.id">
                     {{ location.name }}
                   </SelectItem>
                 </SelectGroup>
@@ -113,7 +114,7 @@ watch(isOpen, (value) => {
               </FormControl>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem v-for="location in locations" :key="location.rfidTag" :value="location.rfidTag">
+                  <SelectItem v-for="location in locations" :key="location.id" :value="location.id">
                     {{ location.name }}
                   </SelectItem>
                 </SelectGroup>

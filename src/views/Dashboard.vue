@@ -19,7 +19,7 @@ const selectedLocation = ref<Location | null>(null)
 
 const showConfirmDialog = ref(false)
 const showConfigLocationDialog = ref(false)
-const { delivery } = useDelivery()
+const { delivery, HomeLocation, KitchenLocation } = useDelivery()
 
 function handleDelivery(location: Location) {
   selectedLocation.value = location
@@ -30,7 +30,15 @@ function handleConfirmDelivery() {
   if (!selectedLocation.value)
     return
 
-  delivery(selectedLocation.value.rfidTag)
+  if (HomeLocation.value?.rfidTag && KitchenLocation.value?.rfidTag) {
+    delivery(selectedLocation.value.rfidTag)
+  }
+  else {
+    notification.error({
+      title: 'Lỗi vị trí',
+      message: 'Vui lòng cấu hình vị trí nhà và bếp trước khi giao hàng',
+    })
+  }
 
   showConfirmDialog.value = false
   selectedLocation.value = null
