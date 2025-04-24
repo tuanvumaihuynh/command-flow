@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { Menu } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
+import Logo from './Logo.vue'
 
 interface Route {
   path: string
@@ -41,7 +42,10 @@ const routes: Route[] = [
         <Menu class="w-5 h-5" />
       </Button>
     </SheetTrigger>
-    <SheetContent side="left" class="pt-8 ">
+    <SheetContent side="left">
+      <SheetHeader>
+        <Logo class="mb-6" />
+      </SheetHeader>
       <nav class="flex flex-col gap-4">
         <RouterLink
           v-for="route in routes"
