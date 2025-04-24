@@ -35,7 +35,9 @@ function handleDelivery(location: Location) {
           <ConfigDialog v-model:open="showConfigDialog" :to="contentDiv!">
             <Button>
               <Settings class="w-4 h-4" />
-              Config
+              <span class="hidden md:block">
+                Config
+              </span>
             </Button>
           </ConfigDialog>
           <Button variant="outline" size="icon" @click="toggle">
