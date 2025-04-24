@@ -14,7 +14,6 @@ import PageContainer from '@/components/shared/PageContainer.vue'
     </div>
 
     <div class="grid gap-6">
-      <!-- <SettingCard /> -->
       <ExportDataCard />
       <ImportDataCard />
     </div>
