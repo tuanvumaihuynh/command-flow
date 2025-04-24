@@ -22,6 +22,9 @@ export function useDashboardLocalStorage() {
   function updateConfig(config: DashboardConfig) {
     state.value = config
   }
+  function importConfig(config: DashboardConfig) {
+    state.value = config
+  }
 
   return {
     config,
@@ -29,5 +32,6 @@ export function useDashboardLocalStorage() {
     kitchenLocation,
     robot,
     updateConfig,
+    importConfig,
   }
 }

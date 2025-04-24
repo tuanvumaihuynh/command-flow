@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { useDashboardLocalStorage } from '@/composables/use-dashboard'
 import { useLocationLocalStorage } from '@/composables/use-location'
-import { useSettingLocalStorage } from '@/composables/use-setting'
+import { useRobotLocalStorage } from '@/composables/use-robot'
 import { Download } from 'lucide-vue-next'
 
 const { locations } = useLocationLocalStorage()
-const { setting } = useSettingLocalStorage()
-
+const { config } = useDashboardLocalStorage()
+const { robots } = useRobotLocalStorage()
 function handleExportData() {
   try {
     const exportData = {
       locations: locations.value,
-      setting: setting.value,
+      dashboard: config.value,
+      robots: robots.value,
       exportDate: new Date().toISOString(),
     }
 

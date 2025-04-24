@@ -2,8 +2,9 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { useDashboardLocalStorage } from '@/composables/use-dashboard'
 import { useLocationLocalStorage } from '@/composables/use-location'
-import { useSettingLocalStorage } from '@/composables/use-setting'
+import { useRobotLocalStorage } from '@/composables/use-robot'
 import { AlertTriangle, Save, Upload } from 'lucide-vue-next'
 import { fromZodError } from 'zod-validation-error'
 import { importDataSchema } from './schemas'
@@ -15,7 +16,8 @@ const importError = ref('')
 const validationDetails = ref<{ message: string, path: string[] }[]>([])
 
 const { importLocations } = useLocationLocalStorage()
-
+const { importConfig } = useDashboardLocalStorage()
+const { importRobots } = useRobotLocalStorage()
 function handleImportClick() {
   if (fileInputRef.value) {
     fileInputRef.value.click()
@@ -71,6 +73,8 @@ function handleImportData() {
     const data = result.data
 
     importLocations(data.locations)
+    importConfig(data.dashboard)
+    importRobots(data.robots)
     notification.success({
       title: 'Data imported successfully',
       message: `Imported ${data.locations.length} locations.`,
