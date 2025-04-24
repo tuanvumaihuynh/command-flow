@@ -13,7 +13,7 @@ import ThemeSwitcher from './ThemeSwitcher.vue'
   <div class="flex-col md:flex">
     <div class="border-b">
       <div class="container flex items-center h-16 px-4">
-        <Logo class="hidden md:block" />
+        <Logo class="hidden md:flex" />
         <MainNav class="mx-6" />
         <div class="flex items-center ml-auto space-x-4">
           <ThemeSwitcher />

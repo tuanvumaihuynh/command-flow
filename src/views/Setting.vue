@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import ExportDataCard from '@/components/app/setting/ExportDataCard.vue'
 import ImportDataCard from '@/components/app/setting/ImportDataCard.vue'
-import SettingCard from '@/components/app/setting/SettingCard.vue'
 import PageContainer from '@/components/shared/PageContainer.vue'
 </script>
 
