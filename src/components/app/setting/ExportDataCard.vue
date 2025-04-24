@@ -62,7 +62,7 @@ function handleExportData() {
       <div class="flex items-center space-x-2">
         <div class="text-sm text-muted-foreground">
           <span class="font-medium">
-            Current data: {{ locations.length }} locations.
+            Current data: {{ locations.length }} locations, {{ robots.length }} robots.
           </span>
         </div>
       </div>
