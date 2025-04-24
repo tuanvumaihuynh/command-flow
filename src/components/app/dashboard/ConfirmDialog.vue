@@ -3,11 +3,13 @@ import type { Location } from '@/types/location'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useDelivery } from '@/composables/use-delivery'
+import ErrorDialog from './ErrorDialog.vue'
 
 const props = defineProps<{
   to: HTMLElement
+  isFullscreen: boolean
 }>()
-
+const isOpenErrorDialog = ref(false)
 const isOpen = defineModel<boolean>('open', { required: true })
 const location = defineModel<Location>('location', { required: true })
 
@@ -23,9 +25,14 @@ async function handleConfirmDelivery() {
     })
   }
   catch (error) {
-    notification.error({
-      message: error instanceof Error ? error.message : 'Unknown error',
-    })
+    if (props.isFullscreen) {
+      isOpenErrorDialog.value = true
+    }
+    else {
+      notification.error({
+        message: error instanceof Error ? error.message : 'Unknown error',
+      })
+    }
   }
   finally {
     isOpen.value = false
@@ -56,4 +63,5 @@ async function handleConfirmDelivery() {
       </DialogFooter>
     </DialogContent>
   </Dialog>
+  <ErrorDialog v-model:open="isOpenErrorDialog" :to="props.to" />
 </template>
