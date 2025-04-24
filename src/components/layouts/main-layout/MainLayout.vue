@@ -10,10 +10,10 @@ import ThemeSwitcher from './ThemeSwitcher.vue'
     <Notification :item="item" />
   </Notivue>
 
-  <div class="flex-col hidden md:flex">
+  <div class="flex-col md:flex">
     <div class="border-b">
       <div class="container flex items-center h-16 px-4">
-        <Logo />
+        <Logo class="hidden md:block" />
         <MainNav class="mx-6" />
         <div class="flex items-center ml-auto space-x-4">
           <ThemeSwitcher />

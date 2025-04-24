@@ -8,11 +8,6 @@ const locationSchema = z.object({
   updatedAt: z.string(),
 })
 
-export const settingSchema = z.object({
-  robotAPIURL: z.string().url(),
-})
-
 export const importDataSchema = z.object({
   locations: z.array(locationSchema),
-  setting: settingSchema,
 })

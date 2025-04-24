@@ -15,7 +15,6 @@ const importError = ref('')
 const validationDetails = ref<{ message: string, path: string[] }[]>([])
 
 const { importLocations } = useLocationLocalStorage()
-const { importSetting } = useSettingLocalStorage()
 
 function handleImportClick() {
   if (fileInputRef.value) {
@@ -72,7 +71,6 @@ function handleImportData() {
     const data = result.data
 
     importLocations(data.locations)
-    importSetting(data.setting)
     notification.success({
       title: 'Data imported successfully',
       message: `Imported ${data.locations.length} locations.`,
