@@ -71,6 +71,7 @@ function handleDelivery(location: Location) {
       v-model:open="showConfirmDialog"
       v-model:location="targetDeliveryLocation"
       :to="contentDiv!"
+      :is-fullscreen="isFullscreen"
     />
   </div>
 </template>
