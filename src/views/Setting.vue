@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ExportDataCard from '@/components/app/data-management/ExportDataCard.vue'
-import ImportDataCard from '@/components/app/data-management/ImportDataCard.vue'
+import ExportDataCard from '@/components/app/setting/ExportDataCard.vue'
+import ImportDataCard from '@/components/app/setting/ImportDataCard.vue'
 import PageContainer from '@/components/shared/PageContainer.vue'
 </script>
 
@@ -8,7 +8,7 @@ import PageContainer from '@/components/shared/PageContainer.vue'
   <PageContainer>
     <div class="flex items-center mb-6">
       <h1 class="text-2xl font-bold">
-        Data Management
+        Setting
       </h1>
     </div>
 

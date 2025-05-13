@@ -16,7 +16,7 @@ const isOpen = defineModel<boolean>('open', { required: true })
 
 const { updateRobot } = useRobotLocalStorage()
 
-const { handleSubmit } = useForm({
+const { handleSubmit, resetForm } = useForm({
   validationSchema: toTypedSchema(updateRobotSchema),
   initialValues: {
     name: props.robot.name,
@@ -30,6 +30,17 @@ const onSubmit = handleSubmit((values) => {
     ...values,
   })
   isOpen.value = false
+})
+
+watch(isOpen, (value) => {
+  if (value) {
+    resetForm({
+      values: {
+        name: props.robot.name,
+        ipAddress: props.robot.ipAddress,
+      },
+    })
+  }
 })
 </script>
 

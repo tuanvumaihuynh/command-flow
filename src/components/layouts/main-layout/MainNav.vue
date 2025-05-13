@@ -1,26 +1,31 @@
 <script setup lang="ts">
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
+import { Menu } from 'lucide-vue-next'
+import { RouterLink } from 'vue-router'
+import Logo from './Logo.vue'
 
 interface Route {
   path: string
   title: string
 }
+const isOpen = ref(false)
 
 const routes: Route[] = [
-  { path: '/', title: 'Home' },
-  { path: '/command-flows', title: 'Command Flows' },
+  { path: '/dashboard', title: 'Dashboard' },
   { path: '/locations', title: 'Locations' },
   { path: '/robots', title: 'Robots' },
-  { path: '/data-management', title: 'Data Management' },
+  { path: '/setting', title: 'Setting' },
 ]
 </script>
 
 <template>
   <nav
-    :class="cn('flex items-center space-x-4 lg:space-x-6', $attrs.class ?? '')"
+    :class="cn('hidden md:flex items-center space-x-4 lg:space-x-6', $attrs.class ?? '')"
   >
     <RouterLink
-      v-for="route in routes.filter(route => route.path !== '/')"
+      v-for="route in routes"
       :key="route.path"
       :to="route.path"
       active-class="text-primary"
@@ -29,4 +34,30 @@ const routes: Route[] = [
       {{ route.title }}
     </RouterLink>
   </nav>
+
+  <!-- Mobile hamburger menu -->
+  <Sheet v-model:open="isOpen">
+    <SheetTrigger as-child>
+      <Button variant="ghost" size="icon" class="md:hidden">
+        <Menu class="w-5 h-5" />
+      </Button>
+    </SheetTrigger>
+    <SheetContent side="left">
+      <SheetHeader>
+        <Logo class="mb-6" />
+      </SheetHeader>
+      <nav class="flex flex-col gap-4">
+        <RouterLink
+          v-for="route in routes"
+          :key="route.path"
+          :to="route.path"
+          active-class="text-primary"
+          class="text-base font-medium text-muted-foreground hover:text-primary"
+          @click="isOpen = false"
+        >
+          {{ route.title }}
+        </RouterLink>
+      </nav>
+    </SheetContent>
+  </Sheet>
 </template>

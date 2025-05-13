@@ -7,26 +7,19 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: MainLayout,
-    redirect: '/command-flows',
+    redirect: '/dashboard',
     children: [
       {
-        path: 'command-flows',
+        path: 'dashboard',
+        name: 'dashboard',
+        component: () => import('@/views/Dashboard.vue'),
         meta: {
-          title: 'Command Flows',
+          title: 'Dashboard',
         },
-        children: [
-          {
-            path: '',
-            component: () => import('@/views/CommandFlows.vue'),
-          },
-          {
-            path: ':id',
-            component: () => import('@/views/CommandFlowBuilder.vue'),
-          },
-        ],
       },
       {
         path: 'locations',
+        name: 'locations',
         component: () => import('@/views/Locations.vue'),
         meta: {
           title: 'Locations',
@@ -34,19 +27,26 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: 'robots',
+        name: 'robots',
         component: () => import('@/views/Robots.vue'),
         meta: {
           title: 'Robots',
         },
       },
       {
-        path: 'data-management',
-        component: () => import('@/views/DataManagement.vue'),
+        path: 'setting',
+        name: 'setting',
+        component: () => import('@/views/Setting.vue'),
         meta: {
-          title: 'Data Management',
+          title: 'Setting',
         },
       },
     ],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/views/NotFound.vue'),
   },
 ]
 
