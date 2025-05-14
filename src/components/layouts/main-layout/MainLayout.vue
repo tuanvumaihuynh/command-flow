@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ConfirmationDialog from '@/components/shared/ConfirmationDialog.vue'
 import { Notification, Notivue } from 'notivue'
 import Logo from './Logo.vue'
 import MainNav from './MainNav.vue'
@@ -9,6 +10,8 @@ import ThemeSwitcher from './ThemeSwitcher.vue'
   <Notivue v-slot="item">
     <Notification :item="item" />
   </Notivue>
+
+  <ConfirmationDialog />
 
   <div class="flex-col md:flex">
     <div class="border-b">
