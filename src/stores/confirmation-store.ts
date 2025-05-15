@@ -9,6 +9,7 @@ interface ConfirmationData {
   actionLabel: string
   onAction: () => void
   onCancel: () => void
+  to?: HTMLElement
 }
 
 export const useConfirmationStore = defineStore('confirmation', () => {
@@ -19,6 +20,7 @@ export const useConfirmationStore = defineStore('confirmation', () => {
   const actionLabel = ref<string | null>(null)
   const onAction = ref<() => void>(() => {})
   const onCancel = ref<() => void>(() => {})
+  const to = ref<HTMLElement | undefined>(undefined)
 
   function openConfirmation(data: ConfirmationData) {
     open.value = true
@@ -28,6 +30,7 @@ export const useConfirmationStore = defineStore('confirmation', () => {
     actionLabel.value = data.actionLabel
     onAction.value = data.onAction
     onCancel.value = data.onCancel
+    to.value = data.to
   }
 
   function closeConfirmation() {
@@ -38,6 +41,7 @@ export const useConfirmationStore = defineStore('confirmation', () => {
     actionLabel.value = null
     onAction.value = () => {}
     onCancel.value = () => {}
+    to.value = undefined
   }
 
   return {
@@ -50,5 +54,6 @@ export const useConfirmationStore = defineStore('confirmation', () => {
     onCancel,
     openConfirmation,
     closeConfirmation,
+    to,
   }
 })

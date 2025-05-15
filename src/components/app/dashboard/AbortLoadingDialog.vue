@@ -11,19 +11,15 @@ const props = defineProps<{
 
 const isOpen = computed(() => props.loading)
 const { commandProcessing, refresh } = useCommandProcessing()
-
-// Thêm interval để refetch mỗi giây khi loading là true
 let refetchInterval: number | null = null
 
 watch(() => props.loading, (isLoading) => {
   if (isLoading) {
-    // Bắt đầu refetch mỗi giây khi loading là true
     refetchInterval = setInterval(() => {
       refresh()
-    }, 1000) as unknown as number
+    }, 1000)
   }
   else {
-    // Dừng interval khi loading là false
     if (refetchInterval) {
       clearInterval(refetchInterval)
       refetchInterval = null
@@ -31,7 +27,6 @@ watch(() => props.loading, (isLoading) => {
   }
 }, { immediate: false })
 
-// Cleanup interval khi component unmount
 onUnmounted(() => {
   if (refetchInterval) {
     clearInterval(refetchInterval)

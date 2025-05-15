@@ -20,8 +20,11 @@ export function useAbort() {
 
     try {
       // stop emergency
-      await emergencyAPI.stopSystemEmergency()
+      await emergencyAPI.stopEmergency()
+
+      // wait for emergency to be stopped
       await new Promise(resolve => setTimeout(resolve, 1000))
+
       // close cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_CLOSE',
@@ -33,6 +36,7 @@ export function useAbort() {
         type: 'CARGO_LIFT',
         inputs: {},
       })
+
       // move to home location
       const moveToHome = await raybotCommandAPI.createCommand({
         type: 'MOVE_TO',
@@ -42,6 +46,7 @@ export function useAbort() {
         },
       })
 
+      // wait for move to home to be completed
       do {
         const command = await raybotCommandAPI.getCommandById(moveToHome.id)
         if (command.status === 'SUCCEEDED') {
