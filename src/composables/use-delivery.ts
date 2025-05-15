@@ -20,6 +20,7 @@ export function useDelivery() {
         type: 'MOVE_TO',
         inputs: {
           location: kitchenLocation.value!.rfidTag,
+          direction: 'FORWARD',
         },
       })
 
@@ -60,6 +61,7 @@ export function useDelivery() {
         type: 'MOVE_TO',
         inputs: {
           location,
+          direction: 'FORWARD',
         },
       })
 
@@ -100,6 +102,7 @@ export function useDelivery() {
         type: 'MOVE_TO',
         inputs: {
           location: homeLocation.value!.rfidTag,
+          direction: 'FORWARD',
         },
       })
     }

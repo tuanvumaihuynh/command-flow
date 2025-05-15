@@ -1,8 +1,13 @@
 export interface StopMovementInputs {}
 export interface MoveForwardInputs {}
 export interface MoveBackwardInputs {}
+
+export const MoveDirectionValues = ['FORWARD', 'BACKWARD'] as const
+export type MoveDirection = typeof MoveDirectionValues[number]
+
 export interface MoveToInputs {
   location: string
+  direction: MoveDirection
 }
 export interface CargoOpenInputs {}
 export interface CargoCloseInputs {}

@@ -27,7 +27,7 @@ const emit = defineEmits<{
       <div class="grid gap-2">
         <div class="flex justify-between text-sm">
           <span class="text-muted-foreground">IP Address:</span>
-          <span class="font-medium">{{ props.robot.ipAddress }}</span>
+          <a target="_blank" :href="`${props.robot.ipAddress}`" class="font-medium underline text-primary">{{ props.robot.ipAddress }}</a>
         </div>
         <div class="flex justify-between text-sm">
           <span class="text-muted-foreground">Created:</span>
