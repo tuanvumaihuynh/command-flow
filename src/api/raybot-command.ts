@@ -14,7 +14,11 @@ export class RaybotCommandAPI {
   }
 
   getCurrentProcessingCommand(): Promise<RaybotCommand> {
-    return this.client.get('/commands/processing')
+    return this.client.get('/commands/processing', { doNotShowLoading: true })
+  }
+
+  getCommandById(id: number): Promise<RaybotCommand> {
+    return this.client.get(`/commands/${id}`, { doNotShowLoading: true })
   }
 
   createCommand<T extends CommandType>(params: CreateCommandParams<T>): Promise<RaybotCommand<T>> {

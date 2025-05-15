@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import type { Location } from '@/types/location'
+import AbortLoadingDialog from '@/components/app/dashboard/AbortLoadingDialog.vue'
 import ConfigDialog from '@/components/app/dashboard/ConfigDialog.vue'
 import ConfirmDialog from '@/components/app/dashboard/ConfirmDialog.vue'
 import LocationCard from '@/components/app/dashboard/LocationCard.vue'
 import { Button } from '@/components/ui/button'
+import { useAbort } from '@/composables/use-abort'
 import { useEmergencyResumeMutation, useEmergencyStateQuery, useEmergencyStopMutation } from '@/composables/use-emergency'
 import { useLocationLocalStorage } from '@/composables/use-location'
 import { cn } from '@/lib/utils'
 import { useConfirmationStore } from '@/stores/confirmation-store'
 import { useFullscreen } from '@vueuse/core'
-import { Maximize, Minimize, Pause, Play, Settings } from 'lucide-vue-next'
+import { CircleAlert, Loader2, Maximize, Minimize, Pause, Play, Settings } from 'lucide-vue-next'
 
 const contentDiv = useTemplateRef('contentDiv')
 const { isFullscreen, toggle } = useFullscreen(contentDiv)
@@ -21,7 +23,7 @@ const { data: emergencyState, refetch: refetchEmergencyState } = useEmergencySta
 const { mutate: stopEmergency } = useEmergencyStopMutation()
 const { mutate: resumeEmergency } = useEmergencyResumeMutation()
 const { openConfirmation } = useConfirmationStore()
-
+const { abort, loading: abortLoading } = useAbort()
 const showConfirmDialog = ref(false)
 const showConfigDialog = ref(false)
 
@@ -72,6 +74,14 @@ function handleEmergency() {
           Delivery dashboard
         </h1>
         <div class="flex items-center gap-4">
+          <Button class="!text-warning" variant="destructive" @click="() => abort()">
+            <span class="flex items-center gap-2">
+              <Loader2 v-if="abortLoading" class="w-4 h-4 animate-spin !text-warning" />
+              <CircleAlert v-else class="w-4 h-4 !text-warning" />
+              Abort Mission
+            </span>
+          </Button>
+
           <Button variant="outline" @click="handleEmergency">
             <span v-if="emergencyState?.locked" class="flex items-center gap-2">
               <Play class="w-4 h-4" />
@@ -120,6 +130,11 @@ function handleEmergency() {
       v-if="targetDeliveryLocation"
       v-model:open="showConfirmDialog"
       v-model:location="targetDeliveryLocation"
+      :to="contentDiv!"
+    />
+
+    <AbortLoadingDialog
+      :loading="abortLoading"
       :to="contentDiv!"
     />
   </div>

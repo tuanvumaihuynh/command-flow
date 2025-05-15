@@ -11,7 +11,7 @@ export function useEmergencyStateQuery() {
   const emergencyAPI = new EmergencyAPI(createRaybotHTTPClient(robot.value!.ipAddress))
   return useQuery({
     queryKey: [EMERGENCY_STATE_QUERY_KEY],
-    queryFn: () => emergencyAPI.getEmergencyState(),
+    queryFn: emergencyAPI.getEmergencyState,
   })
 }
 
@@ -21,7 +21,7 @@ export function useEmergencyStopMutation() {
   const emergencyAPI = new EmergencyAPI(createRaybotHTTPClient(robot.value!.ipAddress))
 
   return useMutation({
-    mutationFn: () => emergencyAPI.stopEmergency(),
+    mutationFn: emergencyAPI.stopEmergency,
   })
 }
 
@@ -31,6 +31,6 @@ export function useEmergencyResumeMutation() {
   const emergencyAPI = new EmergencyAPI(createRaybotHTTPClient(robot.value!.ipAddress))
 
   return useMutation({
-    mutationFn: () => emergencyAPI.resumeEmergency(),
+    mutationFn: emergencyAPI.resumeEmergency,
   })
 }

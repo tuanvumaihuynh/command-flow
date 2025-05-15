@@ -21,4 +21,8 @@ export class EmergencyAPI {
   resumeEmergency(): Promise<void> {
     return this.client.post('/emergency/resume')
   }
+
+  stopSystemEmergency(): Promise<void> {
+    return this.client.post('/system/stop-emergency')
+  }
 }
