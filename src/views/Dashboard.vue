@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import type { Location } from '@/types/location'
+import AbortLoadingDialog from '@/components/app/dashboard/AbortLoadingDialog.vue'
 import ConfigDialog from '@/components/app/dashboard/ConfigDialog.vue'
 import ConfirmDialog from '@/components/app/dashboard/ConfirmDialog.vue'
 import LocationCard from '@/components/app/dashboard/LocationCard.vue'
 import { Button } from '@/components/ui/button'
-import { useEmergencyResumeMutation, useEmergencyStateQuery, useEmergencyStopMutation } from '@/composables/use-emergency'
+import { useAbort } from '@/composables/use-abort'
 import { useLocationLocalStorage } from '@/composables/use-location'
 import { cn } from '@/lib/utils'
 import { useConfirmationStore } from '@/stores/confirmation-store'
 import { useFullscreen } from '@vueuse/core'
-import { Maximize, Minimize, Pause, Play, Settings } from 'lucide-vue-next'
+import { CircleAlert, Loader2, Maximize, Minimize, Settings } from 'lucide-vue-next'
 
 const contentDiv = useTemplateRef('contentDiv')
 const { isFullscreen, toggle } = useFullscreen(contentDiv)
@@ -17,11 +18,8 @@ const { isFullscreen, toggle } = useFullscreen(contentDiv)
 const { locations } = useLocationLocalStorage()
 const targetDeliveryLocation = ref<Location | null>(null)
 
-const { data: emergencyState, refetch: refetchEmergencyState } = useEmergencyStateQuery()
-const { mutate: stopEmergency } = useEmergencyStopMutation()
-const { mutate: resumeEmergency } = useEmergencyResumeMutation()
 const { openConfirmation } = useConfirmationStore()
-
+const { abort, loading: abortLoading } = useAbort()
 const showConfirmDialog = ref(false)
 const showConfigDialog = ref(false)
 
@@ -30,37 +28,19 @@ function handleDelivery(location: Location) {
   showConfirmDialog.value = true
 }
 
-function handleEmergency() {
-  if (emergencyState.value?.locked) {
-    resumeEmergency(undefined, {
-      onSuccess: () => {
-        refetchEmergencyState()
-      },
-      onError: () => {
-        notification.error('Failed to resume emergency')
-      },
-    })
-  }
-  else {
-    openConfirmation({
-      title: 'Stop emergency',
-      description: 'Are you sure you want to stop the emergency?',
-      actionLabel: 'Confirm',
-      cancelLabel: 'Cancel',
-      onAction: () => {
-        stopEmergency(undefined, {
-          onSuccess: () => {
-            refetchEmergencyState()
-          },
-          onError: () => {
-            notification.error('Failed to stop emergency')
-          },
-        })
-      },
-      onCancel: () => {
-      },
-    })
-  }
+function handleAbort() {
+  openConfirmation({
+    title: 'Abort mission',
+    description: 'Are you sure you want to abort the mission?',
+    to: contentDiv.value!,
+    actionLabel: 'Confirm',
+    cancelLabel: 'Cancel',
+    onAction: () => {
+      abort()
+    },
+    onCancel: () => {
+    },
+  })
 }
 </script>
 
@@ -72,16 +52,14 @@ function handleEmergency() {
           Delivery dashboard
         </h1>
         <div class="flex items-center gap-4">
-          <Button variant="outline" @click="handleEmergency">
-            <span v-if="emergencyState?.locked" class="flex items-center gap-2">
-              <Play class="w-4 h-4" />
-              Resume
-            </span>
-            <span v-else class="flex items-center gap-2">
-              <Pause class="w-4 h-4" />
-              Pause
+          <Button class="!text-warning" variant="destructive" @click="handleAbort">
+            <span class="flex items-center gap-2">
+              <Loader2 v-if="abortLoading" class="w-4 h-4 animate-spin !text-warning" />
+              <CircleAlert v-else class="w-4 h-4 !text-warning" />
+              Abort Mission
             </span>
           </Button>
+
           <ConfigDialog v-model:open="showConfigDialog" :to="contentDiv!">
             <Button>
               <Settings class="w-4 h-4" />
@@ -120,6 +98,11 @@ function handleEmergency() {
       v-if="targetDeliveryLocation"
       v-model:open="showConfirmDialog"
       v-model:location="targetDeliveryLocation"
+      :to="contentDiv!"
+    />
+
+    <AbortLoadingDialog
+      :loading="abortLoading"
       :to="contentDiv!"
     />
   </div>

@@ -15,7 +15,7 @@ function handleAction() {
 <template>
   <Dialog :open="confirmation.open" @update:open="confirmation.closeConfirmation">
     <DialogOverlay class="z-50" />
-    <DialogContent>
+    <DialogContent :to="confirmation.to">
       <DialogHeader>
         <DialogTitle>{{ confirmation.title }}</DialogTitle>
         <DialogDescription>
