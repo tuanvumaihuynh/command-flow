@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CommandConfig from '@/components/app/setting/CommandConfig.vue'
 import ExportDataCard from '@/components/app/setting/ExportDataCard.vue'
 import ImportDataCard from '@/components/app/setting/ImportDataCard.vue'
 import PageContainer from '@/components/shared/PageContainer.vue'
@@ -13,6 +14,7 @@ import PageContainer from '@/components/shared/PageContainer.vue'
     </div>
 
     <div class="grid gap-6">
+      <CommandConfig />
       <ExportDataCard />
       <ImportDataCard />
     </div>

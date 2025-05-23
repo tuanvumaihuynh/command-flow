@@ -1,11 +1,13 @@
 import { RaybotCommandAPI } from '@/api/raybot-command'
 import { createRaybotHTTPClient } from '@/lib/http'
+import { useCommandConfigLocalStorage } from './use-command-config'
 import { useDashboardLocalStorage } from './use-dashboard'
 
 export function useDelivery() {
   const { homeLocation, kitchenLocation, robot } = useDashboardLocalStorage()
+  const { commandConfig, getCommandConfigByType } = useCommandConfigLocalStorage()
 
-  const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value)
+  const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value && Object.keys(commandConfig.value).length !== 0)
 
   async function delivery(location: string) {
     if (!isValid.value) {
@@ -21,40 +23,51 @@ export function useDelivery() {
         inputs: {
           location: kitchenLocation.value!.rfidTag,
           direction: 'FORWARD',
+          ...getCommandConfigByType('MOVE_TO'),
         },
       })
+
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
 
       // Lower cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LOWER',
-        inputs: {},
+        inputs: {
+          ...getCommandConfigByType('CARGO_LOWER'),
+        },
       })
 
-      // Open cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_OPEN',
-        inputs: {},
-      })
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
 
       // Wait 10 seconds
       await raybotCommandAPI.createCommand({
         type: 'WAIT',
         inputs: {
-          durationMs: 10000,
+          durationMs: 30000,
         },
       })
 
-      // Close cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_CLOSE',
-        inputs: {},
-      })
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
 
       // Lift cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LIFT',
-        inputs: {},
+        inputs: {
+          ...getCommandConfigByType('CARGO_LIFT'),
+        },
       })
+
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
 
       // Move to target location
       await raybotCommandAPI.createCommand({
@@ -62,40 +75,51 @@ export function useDelivery() {
         inputs: {
           location,
           direction: 'FORWARD',
+          ...getCommandConfigByType('MOVE_TO'),
         },
       })
+
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
 
       // Lower cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LOWER',
-        inputs: {},
+        inputs: {
+          ...getCommandConfigByType('CARGO_LOWER'),
+        },
       })
 
-      // Open cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_OPEN',
-        inputs: {},
-      })
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
 
       // Wait 10 seconds
       await raybotCommandAPI.createCommand({
         type: 'WAIT',
         inputs: {
-          durationMs: 10000,
+          durationMs: 30000,
         },
       })
 
-      // Close cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_CLOSE',
-        inputs: {},
-      })
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
 
       // Lift cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LIFT',
-        inputs: {},
+        inputs: {
+          ...getCommandConfigByType('CARGO_LIFT'),
+        },
       })
+
+      // sleep 1 second
+      await new Promise(resolve => setTimeout(resolve, 500))
 
       // Move to HOME
       await raybotCommandAPI.createCommand({
@@ -103,6 +127,7 @@ export function useDelivery() {
         inputs: {
           location: homeLocation.value!.rfidTag,
           direction: 'FORWARD',
+          ...getCommandConfigByType('MOVE_TO'),
         },
       })
     }

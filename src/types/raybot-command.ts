@@ -1,35 +1,51 @@
-export interface StopMovementInputs {}
-export interface MoveForwardInputs {}
-export interface MoveBackwardInputs {}
-
-export const MoveDirectionValues = ['FORWARD', 'BACKWARD'] as const
-export type MoveDirection = typeof MoveDirectionValues[number]
-
+export interface StopMovementInputs { }
+export interface MoveForwardInputs {
+  motorSpeed: number
+}
+export interface MoveBackwardInputs {
+  motorSpeed: number
+}
 export interface MoveToInputs {
   location: string
-  direction: MoveDirection
+  direction: 'FORWARD' | 'BACKWARD'
+  motorSpeed: number
 }
-export interface CargoOpenInputs {}
-export interface CargoCloseInputs {}
-export interface CargoLiftInputs {}
-export interface CargoLowerInputs {}
+export interface CargoOpenInputs {
+  motorSpeed: number
+}
+export interface CargoCloseInputs {
+  motorSpeed: number
+}
+export interface CargoLiftInputs {
+  motorSpeed: number
+  position: number
+}
+export interface BottomObstacleTracking {
+  enterDistance: number
+  exitDistance: number
+}
+export interface CargoLowerInputs {
+  motorSpeed: number
+  bottomObstacleTracking: BottomObstacleTracking
+  position: number
+}
 export interface CargoCheckQRInputs {
   qrCode: string
 }
-export interface ScanLocationInputs {}
+export interface ScanLocationInputs { }
 export interface WaitInputs {
   durationMs: number
 }
 
-export interface StopMovementOutputs {}
-export interface MoveForwardOutputs {}
-export interface MoveBackwardOutputs {}
-export interface MoveToOutputs {}
-export interface CargoOpenOutputs {}
-export interface CargoCloseOutputs {}
-export interface CargoLiftOutputs {}
-export interface CargoLowerOutputs {}
-export interface CargoCheckQROutputs {}
+export interface StopMovementOutputs { }
+export interface MoveForwardOutputs { }
+export interface MoveBackwardOutputs { }
+export interface MoveToOutputs { }
+export interface CargoOpenOutputs { }
+export interface CargoCloseOutputs { }
+export interface CargoLiftOutputs { }
+export interface CargoLowerOutputs { }
+export interface CargoCheckQROutputs { }
 
 export interface Location {
   location: string
@@ -39,7 +55,7 @@ export interface ScanLocationOutputs {
   locations: Location[]
 }
 
-export interface WaitOutputs {}
+export interface WaitOutputs { }
 
 export interface CommandInputMap {
   STOP_MOVEMENT: StopMovementInputs

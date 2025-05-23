@@ -2,13 +2,15 @@ import { EmergencyAPI } from '@/api/emergency'
 import { RaybotCommandAPI } from '@/api/raybot-command'
 import { createRaybotHTTPClient } from '@/lib/http'
 import { ref } from 'vue'
+import { useCommandConfigLocalStorage } from './use-command-config'
 import { useDashboardLocalStorage } from './use-dashboard'
 
 export function useAbort() {
   const { homeLocation, kitchenLocation, robot } = useDashboardLocalStorage()
   const loading = ref(false)
+  const { commandConfig, getCommandConfigByType } = useCommandConfigLocalStorage()
 
-  const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value)
+  const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value && Object.keys(commandConfig.value).length !== 0)
 
   async function abort() {
     if (!isValid.value) {
@@ -25,16 +27,10 @@ export function useAbort() {
       // wait for emergency to be stopped
       await new Promise(resolve => setTimeout(resolve, 1000))
 
-      // close cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_CLOSE',
-        inputs: {},
-      })
-
       // cargo lift
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LIFT',
-        inputs: {},
+        inputs: getCommandConfigByType('CARGO_LIFT'),
       })
 
       // move to home location
@@ -43,6 +39,7 @@ export function useAbort() {
         inputs: {
           location: homeLocation.value!.rfidTag,
           direction: 'FORWARD',
+          ...getCommandConfigByType('MOVE_TO'),
         },
       })
 

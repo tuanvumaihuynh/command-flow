@@ -36,7 +36,9 @@ function handleAbort() {
     actionLabel: 'Confirm',
     cancelLabel: 'Cancel',
     onAction: () => {
-      abort()
+      abort().catch((error) => {
+        notification.error(error.message)
+      })
     },
     onCancel: () => {
     },
@@ -102,6 +104,7 @@ function handleAbort() {
     />
 
     <AbortLoadingDialog
+      v-if="abortLoading"
       :loading="abortLoading"
       :to="contentDiv!"
     />
