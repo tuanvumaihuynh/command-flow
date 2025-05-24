@@ -21,40 +21,47 @@ export function useDelivery() {
         inputs: {
           location: kitchenLocation.value!.rfidTag,
           direction: 'FORWARD',
+          motorSpeed: 70,
         },
       })
+
+      await new Promise(resolve => setTimeout(resolve, 1000))
 
       // Lower cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LOWER',
-        inputs: {},
-      })
-
-      // Open cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_OPEN',
-        inputs: {},
-      })
-
-      // Wait 10 seconds
-      await raybotCommandAPI.createCommand({
-        type: 'WAIT',
         inputs: {
-          durationMs: 10000,
+          motorSpeed: 100,
+          position: 240,
+          bottomObstacleTracking: {
+            enterDistance: 15,
+            exitDistance: 25,
+          },
         },
       })
 
-      // Close cargo
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
+      // Wait 30 seconds
       await raybotCommandAPI.createCommand({
-        type: 'CARGO_CLOSE',
-        inputs: {},
+        type: 'WAIT',
+        inputs: {
+          durationMs: 30000,
+        },
       })
+
+      await new Promise(resolve => setTimeout(resolve, 1000))
 
       // Lift cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LIFT',
-        inputs: {},
+        inputs: {
+          motorSpeed: 100,
+          position: 25,
+        },
       })
+
+      await new Promise(resolve => setTimeout(resolve, 1000))
 
       // Move to target location
       await raybotCommandAPI.createCommand({
@@ -62,52 +69,59 @@ export function useDelivery() {
         inputs: {
           location,
           direction: 'FORWARD',
+          motorSpeed: 100,
         },
       })
+      await new Promise(resolve => setTimeout(resolve, 1000))
 
       // Lower cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LOWER',
-        inputs: {},
-      })
-
-      // Open cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_OPEN',
-        inputs: {},
-      })
-
-      // Wait 10 seconds
-      await raybotCommandAPI.createCommand({
-        type: 'WAIT',
         inputs: {
-          durationMs: 10000,
+          motorSpeed: 100,
+          position: 240,
+          bottomObstacleTracking: {
+            enterDistance: 15,
+            exitDistance: 25,
+          },
         },
       })
 
-      // Close cargo
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
+      // Wait 30 seconds
       await raybotCommandAPI.createCommand({
-        type: 'CARGO_CLOSE',
-        inputs: {},
+        type: 'WAIT',
+        inputs: {
+          durationMs: 30000,
+        },
       })
+
+      await new Promise(resolve => setTimeout(resolve, 1000))
 
       // Lift cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LIFT',
-        inputs: {},
+        inputs: {
+          motorSpeed: 100,
+          position: 25,
+        },
       })
+
+      await new Promise(resolve => setTimeout(resolve, 1000))
 
       // Move to HOME
       await raybotCommandAPI.createCommand({
         type: 'MOVE_TO',
         inputs: {
           location: homeLocation.value!.rfidTag,
-          direction: 'FORWARD',
+          direction: 'BACKWARD',
+          motorSpeed: 100,
         },
       })
     }
-    catch {
-      return Promise.reject(new Error('Network error or may be robot is not connected'))
+    catch (error) {
+      return Promise.reject(error)
     }
   }
 

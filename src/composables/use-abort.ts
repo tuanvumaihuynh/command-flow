@@ -1,7 +1,6 @@
 import { EmergencyAPI } from '@/api/emergency'
 import { RaybotCommandAPI } from '@/api/raybot-command'
 import { createRaybotHTTPClient } from '@/lib/http'
-import { ref } from 'vue'
 import { useDashboardLocalStorage } from './use-dashboard'
 
 export function useAbort() {
@@ -25,16 +24,13 @@ export function useAbort() {
       // wait for emergency to be stopped
       await new Promise(resolve => setTimeout(resolve, 1000))
 
-      // close cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_CLOSE',
-        inputs: {},
-      })
-
       // cargo lift
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LIFT',
-        inputs: {},
+        inputs: {
+          motorSpeed: 100,
+          position: 25,
+        },
       })
 
       // move to home location
@@ -42,14 +38,15 @@ export function useAbort() {
         type: 'MOVE_TO',
         inputs: {
           location: homeLocation.value!.rfidTag,
-          direction: 'FORWARD',
+          direction: 'BACKWARD',
+          motorSpeed: 100,
         },
       })
 
       // wait for move to home to be completed
       do {
         const command = await raybotCommandAPI.getCommandById(moveToHome.id)
-        if (command.status === 'SUCCEEDED') {
+        if (command.status === 'SUCCEEDED' || command.status === 'FAILED') {
           loading.value = false
           break
         }

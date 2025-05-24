@@ -1,6 +1,10 @@
 export interface StopMovementInputs {}
-export interface MoveForwardInputs {}
-export interface MoveBackwardInputs {}
+export interface MoveForwardInputs {
+  motorSpeed: number
+}
+export interface MoveBackwardInputs {
+  motorSpeed: number
+}
 
 export const MoveDirectionValues = ['FORWARD', 'BACKWARD'] as const
 export type MoveDirection = typeof MoveDirectionValues[number]
@@ -8,11 +12,29 @@ export type MoveDirection = typeof MoveDirectionValues[number]
 export interface MoveToInputs {
   location: string
   direction: MoveDirection
+  motorSpeed: number
 }
-export interface CargoOpenInputs {}
-export interface CargoCloseInputs {}
-export interface CargoLiftInputs {}
-export interface CargoLowerInputs {}
+export interface CargoOpenInputs {
+  motorSpeed: number
+}
+export interface CargoCloseInputs {
+  motorSpeed: number
+}
+export interface CargoLiftInputs {
+  motorSpeed: number
+  position: number
+}
+
+export interface BottomObstacleTracking {
+  enterDistance: number
+  exitDistance: number
+}
+
+export interface CargoLowerInputs {
+  motorSpeed: number
+  position: number
+  bottomObstacleTracking: BottomObstacleTracking
+}
 export interface CargoCheckQRInputs {
   qrCode: string
 }
