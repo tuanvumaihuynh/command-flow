@@ -25,8 +25,6 @@ export function useDelivery() {
         },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 1000))
-
       // Lower cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_LOWER',
@@ -40,7 +38,13 @@ export function useDelivery() {
         },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Open cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_OPEN',
+        inputs: {
+          motorSpeed: 80,
+        },
+      })
 
       // Wait 30 seconds
       await raybotCommandAPI.createCommand({
@@ -50,7 +54,13 @@ export function useDelivery() {
         },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Close cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_CLOSE',
+        inputs: {
+          motorSpeed: 50,
+        },
+      })
 
       // Lift cargo
       await raybotCommandAPI.createCommand({
@@ -60,8 +70,6 @@ export function useDelivery() {
           position: 25,
         },
       })
-
-      await new Promise(resolve => setTimeout(resolve, 1000))
 
       // Move to target location
       await raybotCommandAPI.createCommand({
@@ -72,7 +80,6 @@ export function useDelivery() {
           motorSpeed: 100,
         },
       })
-      await new Promise(resolve => setTimeout(resolve, 1000))
 
       // Lower cargo
       await raybotCommandAPI.createCommand({
@@ -87,7 +94,13 @@ export function useDelivery() {
         },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Open cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_OPEN',
+        inputs: {
+          motorSpeed: 80,
+        },
+      })
 
       // Wait 30 seconds
       await raybotCommandAPI.createCommand({
@@ -97,7 +110,13 @@ export function useDelivery() {
         },
       })
 
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Close cargo
+      await raybotCommandAPI.createCommand({
+        type: 'CARGO_CLOSE',
+        inputs: {
+          motorSpeed: 50,
+        },
+      })
 
       // Lift cargo
       await raybotCommandAPI.createCommand({
@@ -107,8 +126,6 @@ export function useDelivery() {
           position: 25,
         },
       })
-
-      await new Promise(resolve => setTimeout(resolve, 1000))
 
       // Move to HOME
       await raybotCommandAPI.createCommand({
