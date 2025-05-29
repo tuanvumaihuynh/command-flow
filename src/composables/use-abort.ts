@@ -21,9 +21,6 @@ export function useAbort() {
       // stop emergency
       await emergencyAPI.stopEmergency()
 
-      // wait for emergency to be stopped
-      await new Promise(resolve => setTimeout(resolve, 1000))
-
       // close cargo
       await raybotCommandAPI.createCommand({
         type: 'CARGO_CLOSE',
