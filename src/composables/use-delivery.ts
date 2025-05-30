@@ -39,12 +39,12 @@ export function useDelivery() {
       })
 
       // Open cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_OPEN',
-        inputs: {
-          motorSpeed: 80,
-        },
-      })
+      // await raybotCommandAPI.createCommand({
+      //   type: 'CARGO_OPEN',
+      //   inputs: {
+      //     motorSpeed: 80,
+      //   },
+      // })
 
       // Wait 30 seconds
       await raybotCommandAPI.createCommand({
@@ -55,12 +55,12 @@ export function useDelivery() {
       })
 
       // Close cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_CLOSE',
-        inputs: {
-          motorSpeed: 50,
-        },
-      })
+      // await raybotCommandAPI.createCommand({
+      //   type: 'CARGO_CLOSE',
+      //   inputs: {
+      //     motorSpeed: 50,
+      //   },
+      // })
 
       // Lift cargo
       await raybotCommandAPI.createCommand({
@@ -95,12 +95,12 @@ export function useDelivery() {
       })
 
       // Open cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_OPEN',
-        inputs: {
-          motorSpeed: 80,
-        },
-      })
+      // await raybotCommandAPI.createCommand({
+      //   type: 'CARGO_OPEN',
+      //   inputs: {
+      //     motorSpeed: 80,
+      //   },
+      // })
 
       // Wait 30 seconds
       await raybotCommandAPI.createCommand({
@@ -111,12 +111,12 @@ export function useDelivery() {
       })
 
       // Close cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_CLOSE',
-        inputs: {
-          motorSpeed: 50,
-        },
-      })
+      // await raybotCommandAPI.createCommand({
+      //   type: 'CARGO_CLOSE',
+      //   inputs: {
+      //     motorSpeed: 50,
+      //   },
+      // })
 
       // Lift cargo
       await raybotCommandAPI.createCommand({

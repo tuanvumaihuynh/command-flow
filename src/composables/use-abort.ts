@@ -22,12 +22,12 @@ export function useAbort() {
       await emergencyAPI.stopEmergency()
 
       // close cargo
-      await raybotCommandAPI.createCommand({
-        type: 'CARGO_CLOSE',
-        inputs: {
-          motorSpeed: 50,
-        },
-      })
+      // await raybotCommandAPI.createCommand({
+      //   type: 'CARGO_CLOSE',
+      //   inputs: {
+      //     motorSpeed: 50,
+      //   },
+      // })
 
       await new Promise(resolve => setTimeout(resolve, 1000))
       // cargo lift
