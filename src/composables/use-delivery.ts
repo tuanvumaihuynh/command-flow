@@ -21,7 +21,7 @@ export function useDelivery() {
         inputs: {
           location: kitchenLocation.value!.rfidTag,
           direction: 'FORWARD',
-          motorSpeed: 70,
+          motorSpeed: 100,
         },
       })
 
@@ -77,7 +77,7 @@ export function useDelivery() {
         inputs: {
           location,
           direction: 'FORWARD',
-          motorSpeed: 100,
+          motorSpeed: 80,
         },
       })
 
