@@ -4,6 +4,11 @@ const locationSchema = z.object({
   id: z.string(),
   name: z.string(),
   rfidTag: z.string(),
+  speedGoToHome: z.number(),
+  speedGoToKitchen: z.number(),
+  speedDelivery: z.number(),
+  lowerPosition: z.number(),
+  directionToHome: z.union([z.literal('FORWARD'), z.literal('BACKWARD')]),
   createdAt: z.string(),
   updatedAt: z.string(),
 })
