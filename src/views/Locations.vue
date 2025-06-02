@@ -47,7 +47,7 @@ function handleDelete(location: Location) {
       </p>
     </div>
 
-    <div v-else class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div v-else class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <LocationCard
         v-for="location in locations"
         :key="location.id"

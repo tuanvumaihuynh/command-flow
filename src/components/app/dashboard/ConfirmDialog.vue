@@ -17,7 +17,7 @@ const isLoading = ref(false)
 async function handleConfirmDelivery() {
   isLoading.value = true
   try {
-    await delivery(location.value.rfidTag)
+    await delivery(location.value)
     notification.success({
       message: 'Task assigned successfully',
     })
