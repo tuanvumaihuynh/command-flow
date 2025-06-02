@@ -1,3 +1,4 @@
+import type { Location } from '@/types/location'
 import { RaybotCommandAPI } from '@/api/raybot-command'
 import { createRaybotHTTPClient } from '@/lib/http'
 import { useDashboardLocalStorage } from './use-dashboard'
@@ -7,7 +8,7 @@ export function useDelivery() {
 
   const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value)
 
-  async function delivery(location: string) {
+  async function delivery(location: Location) {
     if (!isValid.value) {
       return Promise.reject(new Error('Home, kitchen or robot not configured'))
     }
@@ -21,7 +22,7 @@ export function useDelivery() {
         inputs: {
           location: kitchenLocation.value!.rfidTag,
           direction: 'FORWARD',
-          motorSpeed: 100,
+          motorSpeed: location.speedGoToKitchen,
         },
       })
 
@@ -30,7 +31,7 @@ export function useDelivery() {
         type: 'CARGO_LOWER',
         inputs: {
           motorSpeed: 100,
-          position: 240,
+          position: kitchenLocation.value!.lowerPosition,
           bottomObstacleTracking: {
             enterDistance: 15,
             exitDistance: 25,
@@ -75,9 +76,9 @@ export function useDelivery() {
       await raybotCommandAPI.createCommand({
         type: 'MOVE_TO',
         inputs: {
-          location,
+          location: location.rfidTag,
           direction: 'FORWARD',
-          motorSpeed: 80,
+          motorSpeed: location.speedDelivery,
         },
       })
 
@@ -86,7 +87,7 @@ export function useDelivery() {
         type: 'CARGO_LOWER',
         inputs: {
           motorSpeed: 100,
-          position: 240,
+          position: location.lowerPosition,
           bottomObstacleTracking: {
             enterDistance: 15,
             exitDistance: 25,
@@ -132,8 +133,8 @@ export function useDelivery() {
         type: 'MOVE_TO',
         inputs: {
           location: homeLocation.value!.rfidTag,
-          direction: 'BACKWARD',
-          motorSpeed: 100,
+          direction: location.directionToHome,
+          motorSpeed: location.speedGoToHome,
         },
       })
     }
