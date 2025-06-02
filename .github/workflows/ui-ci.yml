@@ -2,9 +2,6 @@ name: UI CI
 
 on:
   pull_request:
-    paths:
-      - "ui/**"
-      - ".github/workflows/ui-ci.yml"
 
 permissions:
   contents: read
