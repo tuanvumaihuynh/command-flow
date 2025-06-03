@@ -68,7 +68,7 @@ export function useDelivery() {
         type: 'CARGO_LIFT',
         inputs: {
           motorSpeed: 100,
-          position: 25,
+          position: 30,
         },
       })
 
@@ -124,7 +124,7 @@ export function useDelivery() {
         type: 'CARGO_LIFT',
         inputs: {
           motorSpeed: 100,
-          position: 25,
+          position: 30,
         },
       })
 
