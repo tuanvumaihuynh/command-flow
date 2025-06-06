@@ -19,7 +19,7 @@ const { locations } = useLocationLocalStorage()
 const targetDeliveryLocation = ref<Location | null>(null)
 
 const { openConfirmation } = useConfirmationStore()
-const { abort, loading: abortLoading } = useAbort()
+const { abort, loading: abortLoading, isValid } = useAbort()
 const showConfirmDialog = ref(false)
 const showConfigDialog = ref(false)
 
@@ -102,6 +102,7 @@ function handleAbort() {
     />
 
     <AbortLoadingDialog
+      v-if="isValid"
       :loading="abortLoading"
       :to="contentDiv!"
     />

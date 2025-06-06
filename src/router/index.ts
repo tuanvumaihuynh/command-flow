@@ -34,6 +34,14 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
+        path: 'commands',
+        name: 'commands',
+        component: () => import('@/views/CommandConfig.vue'),
+        meta: {
+          title: 'Commands',
+        },
+      },
+      {
         path: 'setting',
         name: 'setting',
         component: () => import('@/views/Setting.vue'),

@@ -1,10 +1,12 @@
 import type { Location } from '@/types/location'
 import { RaybotCommandAPI } from '@/api/raybot-command'
 import { createRaybotHTTPClient } from '@/lib/http'
+import { useConfigCommand } from './use-command-config'
 import { useDashboardLocalStorage } from './use-dashboard'
 
 export function useDelivery() {
   const { homeLocation, kitchenLocation, robot } = useDashboardLocalStorage()
+  const { config } = useConfigCommand()
 
   const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value)
 
@@ -32,10 +34,6 @@ export function useDelivery() {
         inputs: {
           motorSpeed: 100,
           position: kitchenLocation.value!.lowerPosition,
-          bottomObstacleTracking: {
-            enterDistance: 15,
-            exitDistance: 25,
-          },
         },
       })
 
@@ -51,7 +49,7 @@ export function useDelivery() {
       await raybotCommandAPI.createCommand({
         type: 'WAIT',
         inputs: {
-          durationMs: 30000,
+          durationMs: config.value.waitTime,
         },
       })
 
@@ -88,10 +86,6 @@ export function useDelivery() {
         inputs: {
           motorSpeed: 100,
           position: location.lowerPosition,
-          bottomObstacleTracking: {
-            enterDistance: 15,
-            exitDistance: 25,
-          },
         },
       })
 
@@ -107,7 +101,7 @@ export function useDelivery() {
       await raybotCommandAPI.createCommand({
         type: 'WAIT',
         inputs: {
-          durationMs: 30000,
+          durationMs: config.value.waitTime,
         },
       })
 

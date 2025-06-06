@@ -8,7 +8,6 @@ export function useAbort() {
   const loading = ref(false)
 
   const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value)
-
   async function abort() {
     if (!isValid.value) {
       return Promise.reject(new Error('Home, kitchen or robot not configured'))
@@ -66,5 +65,5 @@ export function useAbort() {
     }
   }
 
-  return { abort, loading }
+  return { abort, loading, isValid }
 }

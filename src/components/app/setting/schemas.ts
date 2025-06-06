@@ -26,8 +26,14 @@ const robotSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
 })
+
+const commandConfigSchema = z.object({
+  waitTime: z.number(),
+})
+
 export const importDataSchema = z.object({
   locations: z.array(locationSchema),
   dashboard: dashboardSchema,
   robots: z.array(robotSchema),
+  commandConfig: commandConfigSchema,
 })

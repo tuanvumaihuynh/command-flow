@@ -2,6 +2,7 @@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { useConfigCommand } from '@/composables/use-command-config'
 import { useDashboardLocalStorage } from '@/composables/use-dashboard'
 import { useLocationLocalStorage } from '@/composables/use-location'
 import { useRobotLocalStorage } from '@/composables/use-robot'
@@ -18,6 +19,7 @@ const validationDetails = ref<{ message: string, path: string[] }[]>([])
 const { importLocations } = useLocationLocalStorage()
 const { importConfig } = useDashboardLocalStorage()
 const { importRobots } = useRobotLocalStorage()
+const { importConfigCommand } = useConfigCommand()
 function handleImportClick() {
   if (fileInputRef.value) {
     fileInputRef.value.click()
@@ -75,6 +77,7 @@ function handleImportData() {
     importLocations(data.locations)
     importConfig(data.dashboard)
     importRobots(data.robots)
+    importConfigCommand(data.commandConfig)
     notification.success({
       title: 'Data imported successfully',
       message: `Imported ${data.locations.length} locations.`,
