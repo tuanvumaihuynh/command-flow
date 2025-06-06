@@ -14,8 +14,13 @@ export function useConfigCommand() {
     state.value = config
   }
 
+  function importConfigCommand(config: CommandConfig) {
+    state.value = config
+  }
+
   return {
     config,
     updateConfigCommand,
+    importConfigCommand,
   }
 }
