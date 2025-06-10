@@ -17,6 +17,8 @@ const dashboardSchema = z.object({
   homeLocationId: z.string(),
   kitchenLocationId: z.string(),
   robotId: z.string(),
+  cargoWaitTime: z.number(),
+  cargoLiftPosition: z.number(),
 })
 
 const robotSchema = z.object({

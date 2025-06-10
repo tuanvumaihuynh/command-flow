@@ -10,6 +10,8 @@ export function useDashboardLocalStorage() {
     homeLocationId: '',
     kitchenLocationId: '',
     robotId: '',
+    cargoWaitTime: 30000,
+    cargoLiftPosition: 30,
   })
   const { getLocationById } = useLocationLocalStorage()
   const { getRobotById } = useRobotLocalStorage()

@@ -4,7 +4,7 @@ import { createRaybotHTTPClient } from '@/lib/http'
 import { useDashboardLocalStorage } from './use-dashboard'
 
 export function useDelivery() {
-  const { homeLocation, kitchenLocation, robot } = useDashboardLocalStorage()
+  const { config, homeLocation, kitchenLocation, robot } = useDashboardLocalStorage()
 
   const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value)
 
@@ -47,7 +47,7 @@ export function useDelivery() {
       await raybotCommandAPI.createCommand({
         type: 'WAIT',
         inputs: {
-          durationMs: 30000,
+          durationMs: config.value.cargoWaitTime,
         },
       })
 
@@ -64,7 +64,7 @@ export function useDelivery() {
         type: 'CARGO_LIFT',
         inputs: {
           motorSpeed: 100,
-          position: 30,
+          position: config.value.cargoLiftPosition,
         },
       })
 
@@ -99,7 +99,7 @@ export function useDelivery() {
       await raybotCommandAPI.createCommand({
         type: 'WAIT',
         inputs: {
-          durationMs: 30000,
+          durationMs: config.value.cargoWaitTime,
         },
       })
 
@@ -116,7 +116,7 @@ export function useDelivery() {
         type: 'CARGO_LIFT',
         inputs: {
           motorSpeed: 100,
-          position: 30,
+          position: config.value.cargoLiftPosition,
         },
       })
 
