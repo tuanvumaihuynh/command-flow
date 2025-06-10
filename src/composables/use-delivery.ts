@@ -32,10 +32,6 @@ export function useDelivery() {
         inputs: {
           motorSpeed: 100,
           position: kitchenLocation.value!.lowerPosition,
-          bottomObstacleTracking: {
-            enterDistance: 15,
-            exitDistance: 25,
-          },
         },
       })
 
@@ -88,10 +84,6 @@ export function useDelivery() {
         inputs: {
           motorSpeed: 100,
           position: location.lowerPosition,
-          bottomObstacleTracking: {
-            enterDistance: 15,
-            exitDistance: 25,
-          },
         },
       })
 

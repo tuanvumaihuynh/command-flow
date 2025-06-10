@@ -24,7 +24,6 @@ export interface CargoLiftInputs {
   motorSpeed: number
   position: number
 }
-
 export interface CargoLowerInputs {
   motorSpeed: number
   position: number
