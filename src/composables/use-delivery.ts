@@ -73,7 +73,7 @@ export function useDelivery() {
         type: 'MOVE_TO',
         inputs: {
           location: location.rfidTag,
-          direction: 'FORWARD',
+          direction: location.directionToLocation,
           motorSpeed: location.speedDelivery,
         },
       })

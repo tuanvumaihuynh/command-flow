@@ -37,7 +37,7 @@ const onSubmit = handleSubmit((values) => {
       </DialogHeader>
 
       <form @submit="onSubmit">
-        <div class="grid gap-4 max-h-[70vh] overflow-y-auto px-px">
+        <div class="grid gap-4 pb-px max-h-[70vh] overflow-y-auto px-px">
           <FormField v-slot="{ componentField }" name="name" class="grid gap-2">
             <FormItem>
               <FormLabel>Name</FormLabel>
@@ -113,6 +113,30 @@ const onSubmit = handleSubmit((values) => {
           <FormField v-slot="{ componentField }" name="directionToHome">
             <FormItem>
               <FormLabel>Direction to home</FormLabel>
+              <Select v-bind="componentField" default-value="FORWARD">
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a verified email to display" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="FORWARD">
+                      Forward
+                    </SelectItem>
+                    <SelectItem value="BACKWARD">
+                      Backward
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          </FormField>
+
+          <FormField v-slot="{ componentField }" name="directionToLocation">
+            <FormItem>
+              <FormLabel>Direction to location</FormLabel>
               <Select v-bind="componentField" default-value="FORWARD">
                 <FormControl>
                   <SelectTrigger>

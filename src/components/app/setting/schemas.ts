@@ -9,6 +9,7 @@ const locationSchema = z.object({
   speedDelivery: z.number(),
   lowerPosition: z.number(),
   directionToHome: z.union([z.literal('FORWARD'), z.literal('BACKWARD')]),
+  directionToLocation: z.union([z.literal('FORWARD'), z.literal('BACKWARD')]),
   createdAt: z.string(),
   updatedAt: z.string(),
 })

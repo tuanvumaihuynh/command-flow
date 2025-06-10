@@ -25,11 +25,15 @@ const emit = defineEmits<{
   (e: 'edit', location: Location): void
   (e: 'delete', location: Location): void
 }>()
+
+function getDirection(direction: 'FORWARD' | 'BACKWARD') {
+  return direction === 'FORWARD' ? 'Forward' : 'Backward'
+}
 </script>
 
 <template>
   <Card class="overflow-hidden transition-shadow duration-200 hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-gray-900/20">
-    <CardHeader class="pb-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30">
+    <CardHeader class="border-b">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <MapPin class="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -46,20 +50,27 @@ const emit = defineEmits<{
 
     <CardContent class="p-4 space-y-3">
       <!-- Position & Direction -->
-      <div class="grid grid-cols-2 gap-3">
-        <div class="p-2 rounded bg-orange-50 dark:bg-orange-950/30">
-          <div class="flex items-center gap-1 mb-1">
-            <ArrowDown class="w-3 h-3 text-orange-600 dark:text-orange-400" />
-            <span class="text-sm font-medium text-orange-700 dark:text-orange-300">Lower position</span>
+      <div class="space-y-2 text-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <ArrowDown class="w-4 h-4 text-orange-600 dark:text-orange-400" />
+            <span class="font-medium">Lower Position (cm)</span>
           </div>
-          <span class="text-base font-semibold text-orange-800 dark:text-orange-200">{{ props.location.lowerPosition }} cm</span>
+          <span class="font-medium">{{ props.location.lowerPosition }}</span>
         </div>
-        <div class="p-2 rounded bg-indigo-50 dark:bg-indigo-950/30">
-          <div class="flex items-center gap-1 mb-1">
-            <Navigation class="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
-            <span class="text-sm font-medium text-indigo-700 dark:text-indigo-300">Direction to home</span>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <Navigation class="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span class="font-medium">Direction to home</span>
           </div>
-          <span class="text-base font-semibold text-indigo-800 dark:text-indigo-200">{{ props.location.directionToHome }}</span>
+          <span class="font-medium">{{ getDirection(props.location.directionToHome) }}</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <Navigation class="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span class="font-medium">Direction to location</span>
+          </div>
+          <span class="font-medium">{{ getDirection(props.location.directionToLocation) }}</span>
         </div>
       </div>
 
@@ -107,11 +118,10 @@ const emit = defineEmits<{
       </div>
     </CardContent>
 
-    <CardFooter class="flex justify-end gap-2 p-3 border-t bg-gray-50 dark:bg-gray-800/30 dark:border-gray-700">
+    <CardFooter class="flex justify-end gap-2 p-3 border-t ">
       <Button
         variant="outline"
         size="sm"
-        class="h-8 px-3 text-xs transition-colors hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 dark:hover:bg-blue-950/50 dark:hover:text-blue-400 dark:hover:border-blue-700"
         @click="emit('edit', props.location)"
       >
         <Pencil class="w-3 h-3 mr-1" />
@@ -120,7 +130,6 @@ const emit = defineEmits<{
       <Button
         variant="destructive"
         size="sm"
-        class="h-8 px-3 text-xs transition-colors hover:bg-red-50 hover:text-red-600 hover:border-red-200 dark:hover:bg-red-950/50 dark:hover:text-red-400 dark:hover:border-red-700"
         @click="emit('delete', props.location)"
       >
         <Trash2 class="w-3 h-3 mr-1" />
