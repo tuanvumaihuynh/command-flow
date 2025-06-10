@@ -36,111 +36,113 @@ const onSubmit = handleSubmit((values) => {
         </DialogDescription>
       </DialogHeader>
 
-      <form @submit="onSubmit">
-        <div class="grid gap-4 py-4">
-          <FormField v-slot="{ componentField }" name="name" class="grid gap-2">
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <FormInput v-bind="componentField" type="text" placeholder="Enter location name" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField v-slot="{ componentField }" name="rfidTag" class="grid gap-2">
-            <FormItem>
-              <FormLabel>RFID/Location Tag</FormLabel>
-              <FormControl>
-                <FormInput v-bind="componentField" type="text" placeholder="Enter RFID tag" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField v-slot="{ componentField }" name="lowerPosition" class="grid gap-2">
-            <FormItem>
-              <FormLabel>Lower Position (cm)</FormLabel>
-              <FormControl>
-                <FormInput
-                  v-bind="componentField" type="number" placeholder="Enter lower position"
-                  :default-value="240"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField v-slot="{ componentField }" name="speedGoToHome" class="grid gap-2">
-            <FormItem>
-              <FormLabel>Speed to go to home (%)</FormLabel>
-              <FormControl>
-                <FormInput
-                  v-bind="componentField" type="number" placeholder="Enter speed to go to home"
-                  :default-value="100"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField v-slot="{ componentField }" name="speedGoToKitchen" class="grid gap-2">
-            <FormItem>
-              <FormLabel>Speed to go to kitchen (%)</FormLabel>
-              <FormControl>
-                <FormInput
-                  v-bind="componentField" type="number" placeholder="Enter speed to go to kitchen"
-                  :default-value="100"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField v-slot="{ componentField }" name="speedDelivery" class="grid gap-2">
-            <FormItem>
-              <FormLabel>Speed to deliver (%)</FormLabel>
-              <FormControl>
-                <FormInput
-                  v-bind="componentField" type="number" placeholder="Enter speed to deliver"
-                  :default-value="80"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField v-slot="{ componentField }" name="directionToHome">
-            <FormItem>
-              <FormLabel>Direction to home</FormLabel>
-              <Select v-bind="componentField" default-value="FORWARD">
+      <div class="max-h-[80vh] overflow-y-auto px-px">
+        <form @submit="onSubmit">
+          <div class="grid gap-4 py-4">
+            <FormField v-slot="{ componentField }" name="name" class="grid gap-2">
+              <FormItem>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
-                  </SelectTrigger>
+                  <FormInput v-bind="componentField" type="text" placeholder="Enter location name" />
                 </FormControl>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem value="FORWARD">
-                      Forward
-                    </SelectItem>
-                    <SelectItem value="BACKWARD">
-                      Backward
-                    </SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-        </div>
+                <FormMessage />
+              </FormItem>
+            </FormField>
 
-        <DialogFooter>
-          <Button type="submit">
-            Create
-          </Button>
-        </DialogFooter>
-      </form>
+            <FormField v-slot="{ componentField }" name="rfidTag" class="grid gap-2">
+              <FormItem>
+                <FormLabel>RFID/Location Tag</FormLabel>
+                <FormControl>
+                  <FormInput v-bind="componentField" type="text" placeholder="Enter RFID tag" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+
+            <FormField v-slot="{ componentField }" name="lowerPosition" class="grid gap-2">
+              <FormItem>
+                <FormLabel>Lower Position (cm)</FormLabel>
+                <FormControl>
+                  <FormInput
+                    v-bind="componentField" type="number" placeholder="Enter lower position"
+                    :default-value="240"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+
+            <FormField v-slot="{ componentField }" name="speedGoToHome" class="grid gap-2">
+              <FormItem>
+                <FormLabel>Speed to go to home (%)</FormLabel>
+                <FormControl>
+                  <FormInput
+                    v-bind="componentField" type="number" placeholder="Enter speed to go to home"
+                    :default-value="100"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+
+            <FormField v-slot="{ componentField }" name="speedGoToKitchen" class="grid gap-2">
+              <FormItem>
+                <FormLabel>Speed to go to kitchen (%)</FormLabel>
+                <FormControl>
+                  <FormInput
+                    v-bind="componentField" type="number" placeholder="Enter speed to go to kitchen"
+                    :default-value="100"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+
+            <FormField v-slot="{ componentField }" name="speedDelivery" class="grid gap-2">
+              <FormItem>
+                <FormLabel>Speed to deliver (%)</FormLabel>
+                <FormControl>
+                  <FormInput
+                    v-bind="componentField" type="number" placeholder="Enter speed to deliver"
+                    :default-value="80"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+
+            <FormField v-slot="{ componentField }" name="directionToHome">
+              <FormItem>
+                <FormLabel>Direction to home</FormLabel>
+                <Select v-bind="componentField" default-value="FORWARD">
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a verified email to display" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="FORWARD">
+                        Forward
+                      </SelectItem>
+                      <SelectItem value="BACKWARD">
+                        Backward
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+          </div>
+
+          <DialogFooter>
+            <Button type="submit">
+              Create
+            </Button>
+          </DialogFooter>
+        </form>
+      </div>
     </DialogContent>
   </Dialog>
 </template>
