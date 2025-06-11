@@ -4,7 +4,7 @@ import { createRaybotHTTPClient } from '@/lib/http'
 import { useDashboardLocalStorage } from './use-dashboard'
 
 export function useDelivery() {
-  const { homeLocation, kitchenLocation, robot } = useDashboardLocalStorage()
+  const { config, homeLocation, kitchenLocation, robot } = useDashboardLocalStorage()
 
   const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value)
 
@@ -32,10 +32,6 @@ export function useDelivery() {
         inputs: {
           motorSpeed: 100,
           position: kitchenLocation.value!.lowerPosition,
-          bottomObstacleTracking: {
-            enterDistance: 15,
-            exitDistance: 25,
-          },
         },
       })
 
@@ -51,7 +47,7 @@ export function useDelivery() {
       await raybotCommandAPI.createCommand({
         type: 'WAIT',
         inputs: {
-          durationMs: 30000,
+          durationMs: config.value.cargoWaitTime,
         },
       })
 
@@ -68,7 +64,7 @@ export function useDelivery() {
         type: 'CARGO_LIFT',
         inputs: {
           motorSpeed: 100,
-          position: 30,
+          position: config.value.cargoLiftPosition,
         },
       })
 
@@ -77,7 +73,7 @@ export function useDelivery() {
         type: 'MOVE_TO',
         inputs: {
           location: location.rfidTag,
-          direction: 'FORWARD',
+          direction: location.directionToLocation,
           motorSpeed: location.speedDelivery,
         },
       })
@@ -88,10 +84,6 @@ export function useDelivery() {
         inputs: {
           motorSpeed: 100,
           position: location.lowerPosition,
-          bottomObstacleTracking: {
-            enterDistance: 15,
-            exitDistance: 25,
-          },
         },
       })
 
@@ -107,7 +99,7 @@ export function useDelivery() {
       await raybotCommandAPI.createCommand({
         type: 'WAIT',
         inputs: {
-          durationMs: 30000,
+          durationMs: config.value.cargoWaitTime,
         },
       })
 
@@ -124,7 +116,7 @@ export function useDelivery() {
         type: 'CARGO_LIFT',
         inputs: {
           motorSpeed: 100,
-          position: 30,
+          position: config.value.cargoLiftPosition,
         },
       })
 

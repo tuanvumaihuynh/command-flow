@@ -8,6 +8,7 @@ export const createLocationSchema = z.object({
   speedDelivery: z.number().min(0).max(100).default(80),
   lowerPosition: z.number().min(0).max(250).default(240),
   directionToHome: z.union([z.literal('FORWARD'), z.literal('BACKWARD')]).default('FORWARD'),
+  directionToLocation: z.union([z.literal('FORWARD'), z.literal('BACKWARD')]).default('FORWARD'),
 })
 
 export const updateLocationSchema = createLocationSchema.partial()

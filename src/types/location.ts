@@ -7,6 +7,7 @@ export interface Location {
   speedDelivery: number // speed to deliver in cm/s
   lowerPosition: number // lower position in cm
   directionToHome: 'FORWARD' | 'BACKWARD'
+  directionToLocation: 'FORWARD' | 'BACKWARD'
   createdAt: string
   updatedAt: string
 }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useDashboardLocalStorage } from '@/composables/use-dashboard'
@@ -92,6 +93,25 @@ const { config, updateConfig, homeLocation, kitchenLocation, robot } = useDashbo
             </SelectGroup>
           </SelectContent>
         </Select>
+      </div>
+      <div class="space-y-2">
+        <Label>Cargo Wait Time (ms)</Label>
+        <Input
+          type="number"
+          :model-value="config.cargoWaitTime" @update:model-value="(e) => {
+            updateConfig({ ...config, cargoWaitTime: e as number })
+          }"
+        />
+      </div>
+
+      <div class="space-y-2">
+        <Label>Cargo Lift Position (cm)</Label>
+        <Input
+          type="number"
+          :model-value="config.cargoLiftPosition" @update:model-value="(e) => {
+            updateConfig({ ...config, cargoLiftPosition: e as number })
+          }"
+        />
       </div>
     </DialogContent>
   </Dialog>
