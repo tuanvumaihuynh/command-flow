@@ -9,6 +9,7 @@ export function useDashboardLocalStorage() {
   const state = useLocalStorage<DashboardConfig>(STORAGE_KEY, {
     homeLocationId: '',
     kitchenLocationId: '',
+    directionToKitchen: 'FORWARD',
     robotId: '',
     cargoWaitTime: 30000,
     cargoLiftPosition: 30,
