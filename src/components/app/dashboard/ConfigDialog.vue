@@ -76,6 +76,29 @@ const { config, updateConfig, homeLocation, kitchenLocation, robot } = useDashbo
       </div>
 
       <div class="space-y-2">
+        <Label>Direction to Kitchen</Label>
+        <Select
+          :model-value="config.directionToKitchen" @update:model-value="(e) => {
+            updateConfig({ ...config, directionToKitchen: e as 'FORWARD' | 'BACKWARD' })
+          }"
+        >
+          <SelectTrigger>
+            <SelectValue :value="kitchenLocation?.name" placeholder="Select kitchen location" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="FORWARD">
+                Forward
+              </SelectItem>
+              <SelectItem value="BACKWARD">
+                Backward
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div class="space-y-2">
         <Label>Target Robot</Label>
         <Select
           :model-value="config.robotId" @update:model-value="(e) => {
