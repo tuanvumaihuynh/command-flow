@@ -21,7 +21,7 @@ export function useDelivery() {
         type: 'MOVE_TO',
         inputs: {
           location: kitchenLocation.value!.rfidTag,
-          direction: 'FORWARD',
+          direction: config.value.directionToKitchen,
           motorSpeed: location.speedGoToKitchen,
         },
       })
