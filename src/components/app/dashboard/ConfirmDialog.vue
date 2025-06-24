@@ -37,9 +37,7 @@ async function handleConfirmDelivery() {
 <template>
   <Dialog v-model:open="isOpen">
     <DialogContent
-      :to="props.to" @interact-outside="(e) => {
-        e.preventDefault()
-      }"
+      :to="props.to"
     >
       <DialogHeader>
         <DialogTitle>Confirm delivery</DialogTitle>
