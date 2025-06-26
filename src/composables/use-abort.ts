@@ -43,7 +43,7 @@ export function useAbort() {
         type: 'MOVE_TO',
         inputs: {
           location: homeLocation.value!.rfidTag,
-          direction: config.value.directionToHomeOnAbort,
+          direction: config.value.directionToHomeOnAbort || 'BACKWARD',
           motorSpeed: 100,
         },
       })
