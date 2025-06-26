@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Direction } from '@/types/dashboard'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -79,11 +80,34 @@ const { config, updateConfig, homeLocation, kitchenLocation, robot } = useDashbo
         <Label>Direction to Kitchen</Label>
         <Select
           :model-value="config.directionToKitchen" @update:model-value="(e) => {
-            updateConfig({ ...config, directionToKitchen: e as 'FORWARD' | 'BACKWARD' })
+            updateConfig({ ...config, directionToKitchen: e as Direction })
           }"
         >
           <SelectTrigger>
             <SelectValue :value="kitchenLocation?.name" placeholder="Select kitchen location" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="FORWARD">
+                Forward
+              </SelectItem>
+              <SelectItem value="BACKWARD">
+                Backward
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div class="space-y-2">
+        <Label>Direction to Home on Abort</Label>
+        <Select
+          :model-value="config.directionToHomeOnAbort" @update:model-value="(e) => {
+            updateConfig({ ...config, directionToHomeOnAbort: e as Direction })
+          }"
+        >
+          <SelectTrigger>
+            <SelectValue :value="config.directionToHomeOnAbort" placeholder="Select direction to home on abort" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
