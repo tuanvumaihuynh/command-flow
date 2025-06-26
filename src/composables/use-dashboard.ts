@@ -10,6 +10,7 @@ export function useDashboardLocalStorage() {
     homeLocationId: '',
     kitchenLocationId: '',
     directionToKitchen: 'FORWARD',
+    directionToHomeOnAbort: 'BACKWARD',
     robotId: '',
     cargoWaitTime: 30000,
     cargoLiftPosition: 30,

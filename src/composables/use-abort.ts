@@ -4,7 +4,7 @@ import { createRaybotHTTPClient } from '@/lib/http'
 import { useDashboardLocalStorage } from './use-dashboard'
 
 export function useAbort() {
-  const { homeLocation, kitchenLocation, robot } = useDashboardLocalStorage()
+  const { homeLocation, kitchenLocation, robot, config } = useDashboardLocalStorage()
   const loading = ref(false)
 
   const isValid = computed(() => homeLocation.value && kitchenLocation.value && robot.value)
@@ -43,7 +43,7 @@ export function useAbort() {
         type: 'MOVE_TO',
         inputs: {
           location: homeLocation.value!.rfidTag,
-          direction: 'BACKWARD',
+          direction: config.value.directionToHomeOnAbort,
           motorSpeed: 100,
         },
       })

@@ -18,6 +18,7 @@ const dashboardSchema = z.object({
   homeLocationId: z.string(),
   kitchenLocationId: z.string(),
   directionToKitchen: z.union([z.literal('FORWARD'), z.literal('BACKWARD')]),
+  directionToHomeOnAbort: z.union([z.literal('FORWARD'), z.literal('BACKWARD')]),
   robotId: z.string(),
   cargoWaitTime: z.number(),
   cargoLiftPosition: z.number(),

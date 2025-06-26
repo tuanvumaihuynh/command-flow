@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Direction } from '@/types/dashboard'
 import type { Location } from '@/types/location'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -26,7 +27,7 @@ const emit = defineEmits<{
   (e: 'delete', location: Location): void
 }>()
 
-function getDirection(direction: 'FORWARD' | 'BACKWARD') {
+function getDirection(direction: Direction) {
   return direction === 'FORWARD' ? 'Forward' : 'Backward'
 }
 </script>

@@ -1,3 +1,5 @@
+import type { Direction } from './dashboard'
+
 export interface Location {
   id: string
   name: string
@@ -6,8 +8,8 @@ export interface Location {
   speedGoToKitchen: number // speed to go to kitchen in cm/s
   speedDelivery: number // speed to deliver in cm/s
   lowerPosition: number // lower position in cm
-  directionToHome: 'FORWARD' | 'BACKWARD'
-  directionToLocation: 'FORWARD' | 'BACKWARD'
+  directionToHome: Direction
+  directionToLocation: Direction
   createdAt: string
   updatedAt: string
 }
